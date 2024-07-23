@@ -312,7 +312,8 @@
                 </thead>
                 <tbody id="requestTableBody"></tbody>
             </table>
-            <button type="button" id="addNewNameBtn">Add New Name</button>
+    </div>
+        <button type="button" id="addNewNameBtn">Add New Name</button>
 
 <!-- Modal for adding new name -->
 <div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
@@ -324,7 +325,6 @@
             <button class="print-btn" onclick="printTable()">Print Table</button>
             <button class="undo-btn" id="undoBtn">Undo</button>
         </div>
-    </div>
 
     <script>
         let lastDeletedRequest = null;
