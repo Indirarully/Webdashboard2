@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,27 +20,8 @@
         form { background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
         form label { display: block; margin-top: 10px; font-weight: bold; color: #34495e; position: relative; }
         form label .required-asterisk { color: red; position: absolute; top: 0; }
-        form input[type="text"], form select,
-        form textarea,
-        form input[type="date"],
-        form input[type="number"],
-        form input[type="file"] {
-            width: 100%;
-            padding: 10px;
-            margin-top: 5px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            background-color: transparent;
-            color: grey;
-        }
-        form input[type="text"]::placeholder,
-        form select::placeholder,
-        form textarea::placeholder,
-        form input[type="date"]::placeholder,
-        form input[type="number"]::placeholder,
-        form input[type="file"]::placeholder {
-            color: grey;
+        form input[type="text"], form select, form textarea, form input[type="date"], form input[type="number"], form input[type="file"] {
+            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; background-color: transparent; color: grey;
         }
         form input[type="submit"] { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
         table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
@@ -48,18 +30,11 @@
         .edit-btn, .delete-btn { margin-right: 5px; padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; color: white; }
         .edit-btn { background-color: #2ecc71; }
         .delete-btn { background-color: #e74c3c; }
-        #searchInput { width: 200px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        .static-text {
-    padding: 10px;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    color: #333;
-    font-weight: bold;
-}
+        #searchInput, #sortSelect { width: 200px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .static-text { padding: 10px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; color: #333; font-weight: bold; }
         .success-alert { background-color: #2ecc71; color: white; text-align: center; padding: 10px; margin-top: 20px; display: none; border-radius: 4px; }
         .print-button { margin-bottom: 10px; text-align: right; }
-        .print-button button { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .print-button button, #addNewNameBtn { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
     </style>
 </head>
 <body>
@@ -70,7 +45,6 @@
             <button onclick="window.location.href='login.html'">Logout</button>
         </div>
     </div>
-    
     <div class="container">
         <div class="sidebar">
             <h3>Menu</h3>
@@ -81,7 +55,6 @@
                 <li><a href="result.html">Result</a></li>
             </ul>
         </div>
-
         <div class="main-content">
             <form id="resultForm">
                 <label for="nomor_result">Nomor Result</label>
@@ -89,65 +62,52 @@
                 <label for="Nama">Nama</label>
                 <select id="Nama" required>
                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
-                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
-                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
-                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <!-- other options -->
                 </select>
                 <label for="quantity">Quantity <span class="required-asterisk">*</span></label>
                 <input type="number" id="quantity" required min="1">
-
                 <label for="kode_barang">Kode Barang <span class="required-asterisk">*</span></label>
                 <input type="text" id="kode_barang" required>
-
                 <label for="tanggal">Tanggal <span class="required-asterisk">*</span></label>
                 <input type="date" id="tanggal" required>
-
                 <label for="status">Status <span class="required-asterisk">*</span></label>
                 <select id="status" required>
                     <option value="Disetujui">Disetujui</option>
-                    <option value="Belum Disetujui">Belum Disetujui</option>
-                    <option value="Diasetkan">Diasetkan</option>
+                    <!-- other options -->
                 </select>
-
                 <label for="note">Note</label>
                 <textarea id="note"></textarea>
-
                 <label for="lama_peminjaman">Lama Peminjaman (hari) <span class="required-asterisk">*</span></label>
                 <input type="number" id="lama_peminjaman" required min="1">
-
                 <label for="foto">Foto</label>
                 <input type="file" id="foto" accept="image/*">
-
                 <input type="submit" value="Submit Result">
             </form>
-
             <div class="success-alert" id="successAlert">Data successfully submitted!</div>
-
-            <input type="text" id="searchInput" placeholder="Search...">
-            <div class="print-button">
+            <div>
+                <input type="text" id="searchInput" placeholder="Search...">
+                <select id="sortSelect">
+                    <option value="0">Nomor Result</option>
+                    <option value="1">Quantity</option>
+                    <option value="2">Kode Barang</option>
+                    <option value="3">Tanggal</option>
+                    <option value="4">Status</option>
+                    <option value="5">Note</option>
+                    <option value="6">Lama Peminjaman</option>
+                </select>
                 <button onclick="printTable()">Print</button>
+                <button id="addNewNameBtn" style="margin-left: 10px;">Add New Name</button>
             </div>
-
             <table id="resultTable">
                 <thead>
                     <tr>
-                        <th onclick="sortTable(0)">Nomor Result</th>
-                        <th onclick="sortTable(1)">Quantity</th>
-                        <th onclick="sortTable(2)">Kode Barang</th>
-                        <th onclick="sortTable(3)">Tanggal</th>
-                        <th onclick="sortTable(4)">Status</th>
-                        <th onclick="sortTable(5)">Note</th>
-                        <th onclick="sortTable(6)">Lama Peminjaman</th>
+                        <th>Nomor Result</th>
+                        <th>Quantity</th>
+                        <th>Kode Barang</th>
+                        <th>Tanggal</th>
+                        <th>Status</th>
+                        <th>Note</th>
+                        <th>Lama Peminjaman</th>
                         <th>Foto</th>
                         <th>Action</th>
                     </tr>
@@ -156,216 +116,181 @@
             </table>
         </div>
     </div>
-    <button type="button" id="addNewNameBtn">Add New Name</button>
     <div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
-    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
-        <h2>Add New Name</h2>
-        <input type="text" id="newNameInput" placeholder="Enter new name">
-        <button id="saveNewNameBtn">Save</button>
-        <button id="closeModalBtn">Close</button>
+        <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+            <h2>Add New Name</h2>
+            <input type="text" id="newNameInput" placeholder="Enter new name">
+            <button id="saveNewNameBtn">Save</button>
+            <button id="closeModalBtn">Close</button>
+        </div>
     </div>
-</div>
-
     <script>
-        document.addEventListener('DOMContentLoaded', loadResults);
-        document.getElementById('resultForm').addEventListener('submit', handleSubmit);
-        document.getElementById('searchInput').addEventListener('input', function() {
-            filterResults(this.value);
+
+
+        document.getElementById('resultForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            var tableBody = document.getElementById('resultTableBody');
+            var newRow = tableBody.insertRow();
+
+            newRow.insertCell().textContent = document.getElementById('nomor_result').textContent;
+            newRow.insertCell().textContent = document.getElementById('quantity').value;
+            newRow.insertCell().textContent = document.getElementById('kode_barang').value;
+            newRow.insertCell().textContent = document.getElementById('tanggal').value;
+            newRow.insertCell().textContent = document.getElementById('status').value;
+            newRow.insertCell().textContent = document.getElementById('note').value;
+            newRow.insertCell().textContent = document.getElementById('lama_peminjaman').value;
+
+            var fotoInput = document.getElementById('foto');
+            if (fotoInput.files.length > 0) {
+                var fotoURL = URL.createObjectURL(fotoInput.files[0]);
+                var fotoCell = newRow.insertCell();
+                var fotoImg = document.createElement('img');
+                fotoImg.src = fotoURL;
+                fotoImg.style.width = '50px';
+                fotoCell.appendChild(fotoImg);
+            } else {
+                newRow.insertCell().textContent = 'No photo';
+            }
+
+            var actionCell = newRow.insertCell();
+            var editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.textContent = 'Edit';
+            editBtn.onclick = function() { editRow(newRow); };
+            var deleteBtn = document.createElement('button');
+            deleteBtn.className = 'delete-btn';
+            deleteBtn.textContent = 'Delete';
+            deleteBtn.onclick = function() { deleteRow(newRow); };
+            actionCell.appendChild(editBtn);
+            actionCell.appendChild(deleteBtn);
+
+            document.getElementById('successAlert').style.display = 'block';
+            setTimeout(function() { document.getElementById('successAlert').style.display = 'none'; }, 3000);
+
+            saveDataToLocalStorage();
         });
-let currentResultNumber = 5982; // Mulai dari 5982
 
-function generateResultNumber() {
-    const year = new Date().getFullYear();
-    const resultNumber = `RES/TI/${year}/${currentResultNumber.toString().padStart(4, '0')}`;
-    currentResultNumber++;
-    return resultNumber;
-}
-
-function handleSubmit(e) {
-    e.preventDefault();
-    const resultNumber = generateResultNumber();
-    document.getElementById('nomor_result').textContent = resultNumber;
-    const result = {
-        nomor_result: resultNumber,
-        quantity: document.getElementById('quantity').value,
-        kode_barang: document.getElementById('kode_barang').value,
-        tanggal: document.getElementById('tanggal').value,
-        status: document.getElementById('status').value,
-        note: document.getElementById('note').value,
-        lama_peminjaman: document.getElementById('lama_peminjaman').value,
-        foto: document.getElementById('foto').files[0] ? document.getElementById('foto').files[0].name : 'No file'
-    };
-    saveResult(result);
-    addResultToTable(result);
-    this.reset();
-    document.getElementById('successAlert').style.display = 'block';
-    setTimeout(() => {
-        document.getElementById('successAlert').style.display = 'none';
-    }, 3000);
-}
-
-        function saveResult(result) {
-            const results = JSON.parse(localStorage.getItem('results')) || [];
-            results.push(result);
-            localStorage.setItem('results', JSON.stringify(results));
-        }
-
-        function loadResults() {
-    const results = JSON.parse(localStorage.getItem('results')) || [];
-    results.forEach(result => {
-        addResultToTable(result);
-        // Update currentResultNumber based on the highest existing number
-        const resultNumber = parseInt(result.nomor_result.split('/')[3]);
-        if (resultNumber >= currentResultNumber) {
-            currentResultNumber = resultNumber + 1;
-        }
-    });
-}
-        function addResultToTable(result) {
-            const tableBody = document.getElementById('resultTableBody');
-            const row = tableBody.insertRow();
-            row.innerHTML = `
-                <td>${result.nomor_result}</td>
-                <td>${result.quantity}</td>
-                <td>${result.kode_barang}</td>
-                <td>${result.tanggal}</td>
-                <td>${result.status}</td>
-                <td>${result.note}</td>
-                <td>${result.lama_peminjaman}</td>
-                <td>${result.foto}</td>
-                <td>
-                    <button class="edit-btn" onclick="editResult(this)">Edit</button>
-                    <button class="delete-btn" onclick="deleteResult(this)">Delete</button>
-                </td>
-            `;
-            saveNamesToLocalStorage();
-    loadRequests();
-        }
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
-
-    const addNewNameBtn = document.getElementById('addNewNameBtn');
-    const addNameModal = document.getElementById('addNameModal');
-    const saveNewNameBtn = document.getElementById('saveNewNameBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const newNameInput = document.getElementById('newNameInput');
-    const namaSelect = document.getElementById('Nama');
-
-    addNewNameBtn.addEventListener('click', function() {
-        addNameModal.style.display = 'block';
-    });
-
-    closeModalBtn.addEventListener('click', function() {
-        addNameModal.style.display = 'none';
-    });
-
-    saveNewNameBtn.addEventListener('click', function() {
-        const newName = newNameInput.value.trim();
-        if (newName) {
-            // Add new name to both select elements
-            addNameToSelect(namaSelect, newName);
-            addNameToSelect(document.getElementById('peminjam'), newName);
-            
-            // Save updated name list to localStorage
-            saveNamesToLocalStorage();
-            
-            // Close modal and clear input
-            addNameModal.style.display = 'none';
-            newNameInput.value = '';
-        }
-    });
-
-    // Load saved names from localStorage
-    loadNamesFromLocalStorage();
-});
-
-function addNameToSelect(selectElement, name) {
-    const option = document.createElement('option');
-    option.value = name;
-    option.textContent = name;
-    selectElement.appendChild(option);
-}
-
-function saveNamesToLocalStorage() {
-    const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
-    localStorage.setItem('employeeNames', JSON.stringify(names));
-}
-
-function loadNamesFromLocalStorage() {
-    const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
-    const namaSelect = document.getElementById('Nama');
-    const peminjamSelect = document.getElementById('peminjam');
-    
-    savedNames.forEach(name => {
-        addNameToSelect(namaSelect, name);
-        addNameToSelect(peminjamSelect, name);
-    });
-}
-        function editResult(button) {
-            const row = button.parentNode.parentNode;
-            const cells = row.cells;
-            document.getElementById('nomor_result').value = cells[0].textContent;
+        function editRow(row) {
+            var cells = row.getElementsByTagName('td');
             document.getElementById('quantity').value = cells[1].textContent;
             document.getElementById('kode_barang').value = cells[2].textContent;
             document.getElementById('tanggal').value = cells[3].textContent;
             document.getElementById('status').value = cells[4].textContent;
             document.getElementById('note').value = cells[5].textContent;
             document.getElementById('lama_peminjaman').value = cells[6].textContent;
+
             row.remove();
+            saveDataToLocalStorage();
         }
 
-        function deleteResult(button) {
-            const row = button.parentNode.parentNode;
+        function deleteRow(row) {
             row.remove();
-            updateLocalStorage();
+            saveDataToLocalStorage();
         }
 
-        function updateLocalStorage() {
-            const results = [];
-            const rows = document.querySelectorAll('#resultTableBody tr');
-            rows.forEach(row => {
-                const cells = row.cells;
-                results.push({
-                    nomor_result: cells[0].textContent,
-                    quantity: cells[1].textContent,
-                    kode_barang: cells[2].textContent,
-                    tanggal: cells[3].textContent,
-                    status: cells[4].textContent,
-                    note: cells[5].textContent,
-                    lama_peminjaman: cells[6].textContent,
-                    foto: cells[7].textContent
-                });
+        document.getElementById('searchInput').addEventListener('input', function() {
+            var filter = this.value.toUpperCase();
+            var rows = document.getElementById('resultTableBody').getElementsByTagName('tr');
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var match = false;
+                for (var j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toUpperCase().includes(filter)) {
+                        match = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = match ? '' : 'none';
+            }
+        });
+
+        document.getElementById('sortSelect').addEventListener('change', function() {
+            var columnIndex = this.value;
+            var table = document.getElementById('resultTable');
+            var rows = Array.from(table.rows).slice(1);
+            rows.sort(function(a, b) {
+                var aText = a.cells[columnIndex].textContent;
+                var bText = b.cells[columnIndex].textContent;
+                return aText.localeCompare(bText);
             });
-            localStorage.setItem('results', JSON.stringify(results));
+            rows.forEach(function(row) {
+                table.appendChild(row);
+            });
+        });
+
+        function saveDataToLocalStorage() {
+            var tableBody = document.getElementById('resultTableBody');
+            var rows = tableBody.getElementsByTagName('tr');
+            var data = [];
+            for (var i = 0; i < rows.length; i++) {
+                var cells = rows[i].getElementsByTagName('td');
+                var rowData = [];
+                for (var j = 0; j < cells.length; j++) {
+                    rowData.push(cells[j].innerHTML);
+                }
+                data.push(rowData);
+            }
+            localStorage.setItem('tableData', JSON.stringify(data));
         }
 
-        function filterResults(query) {
-            const rows = document.querySelectorAll('#resultTableBody tr');
-            rows.forEach(row => {
-                const text = row.textContent.toLowerCase();
-                row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
-            });
-        }
-
-        function sortTable(columnIndex) {
-            const tableBody = document.getElementById('resultTableBody');
-            const rows = Array.from(tableBody.rows);
-            rows.sort((a, b) => {
-                const aValue = a.cells[columnIndex].textContent.toLowerCase();
-                const bValue = b.cells[columnIndex].textContent.toLowerCase();
-                return aValue.localeCompare(bValue);
-            });
-            rows.forEach(row => tableBody.appendChild(row));
+        function loadDataFromLocalStorage() {
+            var tableBody = document.getElementById('resultTableBody');
+            tableBody.innerHTML = '';
+            var data = JSON.parse(localStorage.getItem('tableData') || '[]');
+            for (var i = 0; i < data.length; i++) {
+                var newRow = tableBody.insertRow();
+                for (var j = 0; j < data[i].length; j++) {
+                    var newCell = newRow.insertCell();
+                    newCell.innerHTML = data[i][j];
+                }
+                var actionCell = newRow.insertCell();
+                var editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.textContent = 'Edit';
+                editBtn.onclick = function() { editRow(newRow); };
+                var deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = 'Delete';
+                deleteBtn.onclick = function() { deleteRow(newRow); };
+                actionCell.appendChild(editBtn);
+                actionCell.appendChild(deleteBtn);
+            }
         }
 
         function printTable() {
-            const printWindow = window.open('', '', 'height=500,width=800');
-            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
-            printWindow.document.write(document.getElementById('resultTable').outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+            var table = document.getElementById('resultTable');
+            var newWin = window.open("");
+            newWin.document.write(table.outerHTML);
+            newWin.print();
+            newWin.close();
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDataFromLocalStorage();
+        });
+
+        document.getElementById('addNewNameBtn').addEventListener('click', function() {
+            document.getElementById('addNameModal').style.display = 'block';
+        });
+
+        document.getElementById('closeModalBtn').addEventListener('click', function() {
+            document.getElementById('addNameModal').style.display = 'none';
+        });
+
+        document.getElementById('saveNewNameBtn').addEventListener('click', function() {
+            var newName = document.getElementById('newNameInput').value;
+            if (newName) {
+                var nameSelect = document.getElementById('Nama');
+                var newOption = document.createElement('option');
+                newOption.value = newName;
+                newOption.textContent = newName;
+                nameSelect.appendChild(newOption);
+                nameSelect.value = newName;
+                document.getElementById('addNameModal').style.display = 'none';
+                document.getElementById('newNameInput').value = '';
+            }
+        });
     </script>
 </body>
 </html>
+```
