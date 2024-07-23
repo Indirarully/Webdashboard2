@@ -85,9 +85,16 @@
                     <label><input type="radio" name="kebutuhan" value="Permintaan Aset" required> Permintaan Aset</label>
                 </div>
                 <select id="item" required>
+                    <option value="Laptop">Laptop</option>
+                    <option value="Chair">Chair</option>
+                    <option value="Printer">Printer</option>
+                    <option value="Stapler">Stapler</option>
+                    <option value="Whiteboard">Whiteboard</option>
+                    <option value="Desk Lamp">Desk lamp</option>
+                    <option value="Cabinet">Cabinet</option>
+                    <option value="Notebook">Notebook</option>
+                    <option value="Monitor">Monitor</option>
                     <option value="Speaker">Speaker</option>
-                    <option value="Invest">Invest</option>
-                    <option value="Proyektor">Proyektor</option>
                 </select>
                 <select id="department" required>
                     <option value="Engineering">Engineering</option>
@@ -161,7 +168,7 @@
             const item = document.getElementById('item').value;
             const department = document.getElementById('department').value;
             const keperluan = document.getElementById('keperluan').value;
-            const duration = document.getElementById('duration').value;
+            const duration = document.getElementById('duration').value + 'hari';
             const fotoFile = document.getElementById('foto').files[0];
 
             const reader = new FileReader();
@@ -193,28 +200,28 @@
         }
 
         function renderTable() {
-            const tableBody = document.getElementById('employeeTableBody');
-            tableBody.innerHTML = '';
-            employeeData.forEach((employee, index) => {
-                const row = tableBody.insertRow();
-                row.innerHTML = `
-                    <td>${employee.id}</td>
-                    <td>${employee.nama}</td>
-                    <td>${employee.npk}</td>
-                    <td>${employee.kebutuhan}</td>
-                    <td>${employee.item}</td>
-                    <td>${employee.department}</td>
-                    <td>${employee.keperluan}</td>
-                    <td>${employee.duration} hari</td>
-                    <td><img src="${employee.fotoData}" width="100"></td>
-                    <td>
-                        <button class="save-button" onclick="editRow(this)">Edit</button>
-                        <button class="delete-button" onclick="deleteRow(${index})">Hapus</button>
-                        <button class="undo-button" onclick="undoEdit(this)">Undo</button>
-                    </td>
-                `;
-            });
-        }
+    const tableBody = document.getElementById('employeeTableBody');
+    tableBody.innerHTML = '';
+    employeeData.forEach((employee, index) => {
+        const row = tableBody.insertRow();
+        row.innerHTML = `
+            <td>${employee.id}</td>
+            <td>${employee.nama}</td>
+            <td>${employee.npk}</td>
+            <td>${employee.kebutuhan}</td>
+            <td>${employee.item}</td>
+            <td>${employee.department}</td>
+            <td>${employee.keperluan}</td>
+            <td>${employee.duration}</td>
+            <td><img src="${employee.fotoData}" width="100"></td>
+            <td>
+                <button class="save-button" onclick="editRow(this)">Edit</button>
+                <button class="delete-button" onclick="deleteRow(${index})">Hapus</button>
+                <button class="undo-button" onclick="undoEdit(this)">Undo</button>
+            </td>
+        `;
+    });
+}
 
         function editRow(button) {
             const row = button.parentNode.parentNode;
@@ -227,19 +234,23 @@
             button.onclick = function() { saveRow(this); };
         }
 
-        function saveRow(button) {
-            const row = button.parentNode.parentNode;
-            const index = employeeData.findIndex(emp => emp.id === parseInt(row.cells[0].textContent));
-            for (let i = 1; i < row.cells.length - 2; i++) {
-                const cell = row.cells[i];
-                const input = cell.querySelector('input');
-                cell.textContent = input.value;
-                employeeData[index][Object.keys(employeeData[index])[i]] = input.value;
-            }
-            localStorage.setItem('employeeData', JSON.stringify(employeeData));
-            button.textContent = 'Edit';
-            button.onclick = function() { editRow(this); };
+       function saveRow(button) {
+    const row = button.parentNode.parentNode;
+    const index = employeeData.findIndex(emp => emp.id === parseInt(row.cells[0].textContent));
+    for (let i = 1; i < row.cells.length - 2; i++) {
+        const cell = row.cells[i];
+        const input = cell.querySelector('input');
+        let value = input.value;
+        if (i === 7 && !value.includes('hari')) {  // Kolom durasi
+            value += ' hari';
         }
+        cell.textContent = value;
+        employeeData[index][Object.keys(employeeData[index])[i]] = value;
+    }
+    localStorage.setItem('employeeData', JSON.stringify(employeeData));
+    button.textContent = 'Edit';
+    button.onclick = function() { editRow(this); };
+}
 
         function deleteRow(index) {
             employeeData.splice(index, 1);
