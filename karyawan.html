@@ -168,7 +168,7 @@
             const item = document.getElementById('item').value;
             const department = document.getElementById('department').value;
             const keperluan = document.getElementById('keperluan').value;
-            const duration = document.getElementById('duration').value + 'hari';
+            const duration = document.getElementById('duration').value + ' hari';
             const fotoFile = document.getElementById('foto').files[0];
 
             const reader = new FileReader();
@@ -241,7 +241,7 @@
         const cell = row.cells[i];
         const input = cell.querySelector('input');
         let value = input.value;
-        if (i === 7 && !value.includes('hari')) {  // Kolom durasi
+        if (i === 7 && !value.includes(' hari')) {  // Kolom durasi
             value += ' hari';
         }
         cell.textContent = value;
