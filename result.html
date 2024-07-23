@@ -84,25 +84,25 @@
 
         <div class="main-content">
             <form id="resultForm">
+                <label for="nomor_result">Nomor Result</label>
+                <div id="nomor_result" class="static-text">RES/TI/2024/5982</div>
+                <label for="Nama">Nama</label>
                 <select id="Nama" required>
                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
                     <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
                     <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
                     <option value="FERRI RIZALDI">FERRI RIZALDI</option>
                     <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="AFIF MUSYAFA">AFIF MUSYAFA</option>
-                    <option value="ASMIL JANUAR">ASMIL JANUAR</option>
-                    <option value="KHARLIN AHMAD HANAFI SIREGAR">KHARLIN AHMAD HANAFI SIREGAR</option>
+                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
+                    <option value="JAELANI">JAELANI</option>
+                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
+                    <option value="OCTAVIANA">OCTAVIANA</option>
+                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
                     <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
                     <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="SOLICHUN">SOLICHUN</option>
-                    <option value="RANGGA SYAPUTRA">RANGGA SYAPUTRA</option>
                     <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
                     <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
                 </select>
-                <label for="nomor_result">Nomor Result</label>
-                <div id="nomor_result" class="static-text">RES/TI/2024/5982</div>
-
                 <label for="quantity">Quantity <span class="required-asterisk">*</span></label>
                 <input type="number" id="quantity" required min="1">
 
@@ -156,6 +156,15 @@
             </table>
         </div>
     </div>
+    <button type="button" id="addNewNameBtn">Add New Name</button>
+    <div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+        <h2>Add New Name</h2>
+        <input type="text" id="newNameInput" placeholder="Enter new name">
+        <button id="saveNewNameBtn">Save</button>
+        <button id="closeModalBtn">Close</button>
+    </div>
+</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', loadResults);
@@ -229,8 +238,69 @@ function handleSubmit(e) {
                     <button class="delete-btn" onclick="deleteResult(this)">Delete</button>
                 </td>
             `;
+            saveNamesToLocalStorage();
+    loadRequests();
         }
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
 
+    const addNewNameBtn = document.getElementById('addNewNameBtn');
+    const addNameModal = document.getElementById('addNameModal');
+    const saveNewNameBtn = document.getElementById('saveNewNameBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const newNameInput = document.getElementById('newNameInput');
+    const namaSelect = document.getElementById('Nama');
+
+    addNewNameBtn.addEventListener('click', function() {
+        addNameModal.style.display = 'block';
+    });
+
+    closeModalBtn.addEventListener('click', function() {
+        addNameModal.style.display = 'none';
+    });
+
+    saveNewNameBtn.addEventListener('click', function() {
+        const newName = newNameInput.value.trim();
+        if (newName) {
+            // Add new name to both select elements
+            addNameToSelect(namaSelect, newName);
+            addNameToSelect(document.getElementById('peminjam'), newName);
+            
+            // Save updated name list to localStorage
+            saveNamesToLocalStorage();
+            
+            // Close modal and clear input
+            addNameModal.style.display = 'none';
+            newNameInput.value = '';
+        }
+    });
+
+    // Load saved names from localStorage
+    loadNamesFromLocalStorage();
+});
+
+function addNameToSelect(selectElement, name) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.textContent = name;
+    selectElement.appendChild(option);
+}
+
+function saveNamesToLocalStorage() {
+    const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
+    localStorage.setItem('employeeNames', JSON.stringify(names));
+}
+
+function loadNamesFromLocalStorage() {
+    const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
+    const namaSelect = document.getElementById('Nama');
+    const peminjamSelect = document.getElementById('peminjam');
+    
+    savedNames.forEach(name => {
+        addNameToSelect(namaSelect, name);
+        addNameToSelect(peminjamSelect, name);
+    });
+}
         function editResult(button) {
             const row = button.parentNode.parentNode;
             const cells = row.cells;
