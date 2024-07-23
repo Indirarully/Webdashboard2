@@ -239,6 +239,7 @@
                     <option value="HRD">HRD</option>
                     <option value="Purchasing">Purchasing</option>
                 </select>
+                <label for="Nama">Nama</label>
                 <select id="Nama" required>
                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
                     <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
@@ -271,6 +272,7 @@
                     <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
                     <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
                 </select>
+                
                 <label for="item">Item</label>
                 <select id="item" required>
                     <option value="Laptop">Laptop</option>
@@ -310,6 +312,15 @@
                 </thead>
                 <tbody id="requestTableBody"></tbody>
             </table>
+            <button type="button" id="addNewNameBtn">Add New Name</button>
+
+<!-- Modal for adding new name -->
+<div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+        <h2>Add New Name</h2>
+        <input type="text" id="newNameInput" placeholder="Enter new name">
+        <button id="saveNewNameBtn">Save</button>
+        <button id="closeModalBtn">Close</button>
             <button class="print-btn" onclick="printTable()">Print Table</button>
             <button class="undo-btn" id="undoBtn">Undo</button>
         </div>
