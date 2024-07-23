@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Karyawan Management System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; display: flex;}
+        .top-bar {position: fixed; top: 0; left: 0; right: 0; background-color: #2c3e50; color: white; padding: 30px 10px; display: flex; justify-content: center; align-items: center; z-index: 1000; height: 60px;}
+        .top-bar h1 {margin: 0; font-size: 32px; color: white;}
+        .auth-buttons {position: absolute; right: 10px;}
+        .auth-buttons button {background-color: #3498db; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;}
+        .sidebar {width: 240px; background-color: #2c3e50; color: white; padding: 20px; height: calc(100vh - 120px); position: fixed; top: 120px; left: 0; overflow-y: auto;}
+        .sidebar a {color: white; text-decoration: none; display: block; padding: 10px 0;}
+        .sidebar h2 {font-size: 28px; color: white; margin-bottom: 20px;}
+        .main-content {flex: 1; padding: 140px 20px 20px 290px; margin-left: 0;}
+        form {background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+        input[type="text"], select, textarea, input[type="file"] {width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;}
+        input[type="submit"], .print-button, .toggle-button {background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; display: inline-block; margin-top: 10px; margin-right: 10px;}
+        table {width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+        th, td {text-align: left; padding: 12px; border-bottom: 1px solid #ddd;}
+        th {background-color: #3498db; color: white;}
+        .action-buttons button {margin: 2px; padding: 5px 10px; border: none; border-radius: 4px; cursor: pointer;}
+        .save-button {background-color: #2ecc71; color: white;}
+        .undo-button {background-color: #f39c12; color: white;}
+        .delete-button {background-color: #c0392b; color: white;}
+        .kebutuhan-options {display: flex; gap: 10px; margin: 10px 0;}
+        .kebutuhan-options label {display: flex; align-items: center; gap: 5px;}
+        #searchInput, #sortInput {width: 200px; display: inline-block; margin-right: 10px;}
+        .controls {margin-bottom: 20px;}
+        @media print {.action-buttons, td:nth-last-child(1), td:nth-last-child(2), th:nth-last-child(1), th:nth-last-child(2), .print-button, .toggle-button, .top-bar, .sidebar {display: none !important;}}
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Karyawan</h1>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button onclick="window.location.href='login.html'">Logout</button>
+        </div>
+    </div>
+    <div class="sidebar">
+        <h2>MENU</h2>
+        <a href="index.html">Dashboard</a>
+        <a href="karyawan.html">Karyawan</a>
+        <a href="request.html">Request</a>
+        <a href="result.html">Result</a>
+    </div>
+    <div class="main-content">
+        <div id="employeeForm" style="display: none;">
+            <form id="addEmployeeForm">
+                <select id="Nama" required>
+                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
+                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
+                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
+                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
+                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
+                    <option value="AFIF MUSYAFA">AFIF MUSYAFA</option>
+                    <option value="ASMIL JANUAR">ASMIL JANUAR</option>
+                    <option value="KHARLIN AHMAD HANAFI SIREGAR">KHARLIN AHMAD HANAFI SIREGAR</option>
+                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
+                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
+                    <option value="SOLICHUN">SOLICHUN</option>
+                    <option value="RANGGA SYAPUTRA">RANGGA SYAPUTRA</option>
+                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
+                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                </select>
+                <select id="npk" required>
+                    <option value="12355">12355</option>
+                    <option value="12364">12364</option>
+                    <option value="12369">12369</option>
+                    <option value="12360">12360</option>
+                    <option value="12356">12356</option>
+                    <option value="12399">12399</option>
+                    <option value="12394">12394</option>
+                    <option value="12387">12387</option>
+                    <option value="12381">12381</option>
+                    <option value="12376">12376</option>
+                    <option value="12372">12372</option>
+                    <option value="12368">12368</option>
+                    <option value="12363">12363</option>
+                </select>
+                <div class="kebutuhan-options">
+                    <label><input type="radio" name="kebutuhan" value="Peminjaman Aset" required> Peminjaman Aset</label>
+                    <label><input type="radio" name="kebutuhan" value="Permintaan Aset" required> Permintaan Aset</label>
+                </div>
+                <select id="item" required>
+                    <option value="Speaker">Speaker</option>
+                    <option value="Invest">Invest</option>
+                    <option value="Proyektor">Proyektor</option>
+                </select>
+                <select id="department" required>
+                    <option value="Engineering">Engineering</option>
+                    <option value="QC">QC</option>
+                    <option value="Produksi">Produksi</option>
+                    <option value="General Affair">General Affair</option>
+                    <option value="HRD">HRD</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Purchasing">Purchasing</option>
+                    <option value="PPiC">PPiC</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="IT">IT</option>
+                    <option value="Finance">Finance</option>
+                </select>
+                <textarea id="keperluan" placeholder="Keperluan" required></textarea>
+                <input type="file" id="foto" accept="image/*" required>
+                <br>
+                <label for="duration">Lama Peminjaman:</label>
+                <select id="duration" required></select>
+                <br>
+                <input type="submit" value="Tambah">
+            </form>
+        </div>
+        <div class="controls">
+            <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari berdasarkan nama..">
+            <select id="sortInput" onchange="sortTable()">
+                <option value="nama">Nama</option>
+                <option value="npk">NPK</option>
+                <option value="item">Item</option>
+                <option value="department">Department</option>
+            </select>
+            <button class="print-button" onclick="printTable()">Print</button>
+            <div class="toggle-button" onclick="toggleForm()">Add</div>
+        </div>
+        <table id="employeeTable">
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>NPK</th>
+                    <th>Kebutuhan</th>
+                    <th>Item</th>
+                    <th>Department</th>
+                    <th>Keperluan</th>
+                    <th>Lama Peminjaman</th>
+                    <th>Foto</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="employeeTableBody"></tbody>
+        </table>
+    </div>
+    <script>
+        let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [{nama: "John Doe", npk: "12345", kebutuhan: "Peminjaman Aset", item: "Proyektor", department: "Engineering", keperluan: "Presentasi", duration: "2", fotoData: "https://via.placeholder.com/50"}];
+        function toggleForm() {
+            const form = document.getElementById('employeeForm');
+            form.style.display = form.style.display === 'block' ? 'none' : 'block';
+        }
+        document.getElementById('addEmployeeForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            addEmployee();
+        });
+        function addEmployee() {
+            const nama = document.getElementById('nama').value;
+            const npk = document.getElementById('npk').value;
+            const kebutuhan = document.querySelector('input[name="kebutuhan"]:checked').value;
+            const item = document.getElementById('item').value;
+            const department = document.getElementById('department').value;
+            const keperluan = document.getElementById('keperluan').value;
+            const duration = document.getElementById('duration').value;
+            const fotoFile = document.getElementById('foto').files[0];
+            const reader = new FileReader();
+            reader.onloadend = function() {
+                const newEmployee = {nama, npk, kebutuhan, item, department, keperluan, duration, fotoData: reader.result};
+                employeeData.push(newEmployee);
+                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                renderTable();
+                document.getElementById('addEmployeeForm').reset();
+                toggleForm();
+            };
+            if (fotoFile) {
+                reader.readAsDataURL(fotoFile);
+            } else {
+                alert('Mohon pilih file foto');
+            }
+        }
+        function renderTable() {
+            const tableBody = document.getElementById('employeeTableBody');
+            tableBody.innerHTML = '';
+            employeeData.forEach((employee, index) => {
+                const row = tableBody.insertRow();
+                row.innerHTML = `
+                    <td>${employee.nama}</td>
+                    <td>${employee.npk}</td>
+                    <td>${employee.kebutuhan}</td>
+                    <td>${employee.item}</td>
+                    <td>${employee.department}</td>
+                    <td>${employee.keperluan}</td>
+                    <td>${employee.duration} hari</td>
+                    <td><img src="${employee.fotoData}" width="100"></td>
+                    <td>
+                        <button class="save-button" onclick="editRow(this)">Edit</button>
+                        <button class="delete-button" onclick="deleteRow(${index})">Hapus</button>
+                        <button class="undo-button" onclick="undoEdit(this)">Undo</button>
+                    </td>
+                `;
+            });
+        }
+        function editRow(button) {
+            const row = button.parentNode.parentNode;
+            for (let i = 0; i < row.cells.length - 2; i++) {
+                const cell = row.cells[i];
+                const text = cell.textContent;
+                cell.innerHTML = `<input type="text" value="${text}">`;
+            }
+            button.textContent = 'Simpan';
+            button.onclick = function() { saveRow(this); };
+        }
+        function saveRow(button) {
+            const row = button.parentNode.parentNode;
+            const index = row.rowIndex - 1;
+            for (let i = 0; i < row.cells.length - 2; i++) {
+                const cell = row.cells[i];
+                const input = cell.querySelector('input');
+                cell.textContent = input.value;
+                employeeData[index][Object.keys(employeeData[index])[i]] = input.value;
+            }
+            localStorage.setItem('employeeData', JSON.stringify(employeeData));
+            button.textContent = 'Edit';
+            button.onclick = function() { editRow(this); };
+        }
+        function deleteRow(index) {
+            employeeData.splice(index, 1);
+            localStorage.setItem('employeeData', JSON.stringify(employeeData));
+            renderTable();
+        }
+        function undoEdit(button) {
+            renderTable();
+        }
+        function searchTable() {
+            const input = document.getElementById('searchInput');
+            const filter = input.value.toLowerCase();
+            const rows = document.getElementById('employeeTableBody').getElementsByTagName('tr');
+            for (let i = 0; i < rows.length; i++) {
+                const cells = rows[i].getElementsByTagName('td');
+                let found = false;
+                for (let j = 0; j < cells.length; j++) {
+                    if (cells[j].textContent.toLowerCase().indexOf(filter) > -1) {
+                        found = true;
+                        break;
+                    }
+                }
+                rows[i].style.display = found ? '' : 'none';
+            }
+        }
+        function sortTable() {
+            const select = document.getElementById('sortInput');
+            const column = select.value;
+            employeeData.sort((a, b) => (a[column] > b[column]) ? 1 : -1);
+            renderTable();
+        }
+        function printTable() {
+            const originalContents = document.body.innerHTML;
+            const printContents = document.getElementById('employeeTable').outerHTML;
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            renderTable();
+        }
+        window.onload = function() {
+            renderTable();
+            document.getElementById('duration').innerHTML = `
+                <option value="1">1 hari</option>
+                <option value="2">2 hari</option>
+                <option value="3">3 hari</option>
+                <option value="4">4 hari</option>
+                <option value="5">5 hari</option>
+            `;
+        };
+    </script>
+</body>
+</html>

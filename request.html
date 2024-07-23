@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../css/style.css">
+    <link rel="stylesheet" href="../../icon/css/all.min.css">
+    <title>Request Form - Asset IT</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+        }
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center; /* Center the title */
+            align-items: center;
+            z-index: 1000;
+            height: 60px;
+        }
+        .top-bar h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+        .auth-buttons {position: absolute; right: 10px;}
+        .auth-buttons button {background-color: #3498db; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;}
+        .auth-buttons button:first-child {
+            margin-left: 200px;
+        }
+
+        .container {
+            flex: 1;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .sidebar h3 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            position: relative;
+        }
+        h2 {
+            color: #34495e;
+        }
+        form {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+        form.show {
+            display: block;
+        }
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #34495e;
+        }
+        form input[type="text"], form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        form input[type="submit"], .print-btn, #itemButton,#addButton {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+        form input[type="submit"]:hover, .print-btn:hover, #addButton:hover {
+            background-color: #2980b9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .edit-btn, .delete-btn, .save-btn, .undo-btn {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+        }
+        .edit-btn {
+            background-color: #2ecc71;
+        }
+        .edit-btn:hover {
+            background-color: #27ae60;
+        }
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+        .save-btn {
+            background-color: #3498db;
+        }
+        .save-btn:hover {
+            background-color: #2980b9;
+        }
+        .undo-btn {
+            background-color: #f39c12;
+            color: white;
+            display: none;
+        }
+        .undo-btn:hover {
+            background-color: #d35400;
+        }
+        #searchInput {
+            width: 200px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        #sortBar {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+        .editable-cell {
+            cursor: pointer;
+        }
+        .editable-cell input {
+            border: none;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+        .editable-cell input:focus {
+            outline: none;
+            border-bottom: 1px solid #3498db;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Request Form</h1>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button onclick="window.location.href='login.html'">Logout</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="karyawan.html">Karyawan</a></li>
+                <li><a href="request.html">Request</a></li>
+                <li><a href="result.html">Result</a></li>
+            </ul>
+        </div>
+        <div class="main-content">
+            <h2>Request Form</h2>
+            <br><br>
+            <button id="addButton" class="print-btn">Add</button>
+            <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
+            <form id="requestForm">
+                <label for="nomor_request">Nomor Request</label>
+                <input type="text" name="nomor_request" id="nomor_request" value="REQ/TI/2024/4681" readonly>
+                <label for="quantity">Quantity</label>
+                <input type="text" name="quantity" id="quantity">
+                <label for="department">Department</label>
+                <select name="department" id="department">
+                    <option value="Engineering">Engineering</option>
+                    <option value="QC">QC</option>
+                    <option value="Produksi">Produksi</option>
+                    <option value="General Affair">General Affair</option>
+                    <option value="Marketing">Marketing</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="PPIC">PPIC</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Finance">Finance</option>
+                    <option value="HRD">HRD</option>
+                    <option value="Purchasing">Purchasing</option>
+                </select>
+                <label for="nama">Nama</label>
+                <input type="text" name="nama" id="nama">
+                <label for="peminjam">Peminjam</label>
+                <input type="text" name="peminjam" id="peminjam">
+                <label for="item">Item</label>
+                <select name="item" id="item">
+                    <option value="Speaker">Speaker</option>
+                    <option value="Invest">Invest</option>
+                    <option value="Proyektor">Proyektor</option>
+                </select>
+                <input type="submit" value="Submit Request">
+            </form>
+            <div style="display: flex; align-items: center;">
+                <input type="text" id="searchInput" placeholder="Search...">
+                <select id="sortBar">
+                    <option value="0">Sort by Nomor Request</option>
+                    <option value="1">Sort by Quantity</option>
+                    <option value="2">Sort by Department</option>
+                    <option value="3">Sort by Nama</option>
+                    <option value="4">Sort by Peminjam</option>
+                    <option value="5">Sort by Item</option>
+                </select>
+            </div>
+            <table id="requestTable">
+                <thead>
+ <tr>
+                        <th>Nomor Request</th>
+                        <th>Quantity</th>
+                        <th>Department</th>
+                        <th>Nama</th>
+                        <th>Peminjam</th>
+                        <th>Item</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="requestTableBody"></tbody>
+            </table>
+            <button class="print-btn" onclick="printTable()">Print Table</button>
+            <button class="undo-btn" id="undoBtn">Undo</button>
+        </div>
+    </div>
+
+    <script>
+        let lastDeletedRequest = null;
+        let lastDeletedRowIndex = null;
+
+        document.addEventListener('DOMContentLoaded', loadRequests);
+
+        document.getElementById('addButton').addEventListener('click', () => {
+            document.getElementById('requestForm').classList.toggle('show');
+        });
+
+        document.getElementById('requestForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            addRequest();
+        });
+
+        document.getElementById('undoBtn').addEventListener('click', undoDelete);
+
+        document.getElementById('searchInput').addEventListener('input', filterTable);
+        document.getElementById('sortBar').addEventListener('change', sortTable);
+
+        function loadRequests() {
+            const requests = JSON.parse(localStorage.getItem('requests')) || [];
+            const tableBody = document.getElementById('requestTableBody');
+            tableBody.innerHTML = '';
+            requests.forEach((request, index) => {
+                const row = tableBody.insertRow();
+                row.insertCell(0).innerText = request.nomor_request;
+                row.insertCell(1).innerText = request.quantity;
+                row.insertCell(2).innerText = request.department;
+                row.insertCell(3).innerText = request.nama;
+                row.insertCell(4).innerText = request.peminjam;
+                row.insertCell(5).innerText = request.item;
+
+                const actionCell = row.insertCell(6);
+                const editBtn = document.createElement('button');
+                editBtn.className = 'edit-btn';
+                editBtn.innerText = 'Edit';
+                editBtn.addEventListener('click', () => startEdit(index));
+                actionCell.appendChild(editBtn);
+
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.innerText = 'Delete';
+                deleteBtn.addEventListener('click', () => deleteRequest(index));
+                actionCell.appendChild(deleteBtn);
+            });
+        }
+
+        function addRequest() {
+            const requests = JSON.parse(localStorage.getItem('requests')) || [];
+            const newRequest = {
+                nomor_request: document.getElementById('nomor_request').value,
+                quantity: document.getElementById('quantity').value,
+                department: document.getElementById('department').value,
+                nama: document.getElementById('nama').value,
+                peminjam: document.getElementById('peminjam').value,
+                item: document.getElementById('item').value
+            };
+            requests.push(newRequest);
+            localStorage.setItem('requests', JSON.stringify(requests));
+            document.getElementById('requestForm').reset();
+            document.getElementById('requestForm').classList.remove('show');
+            loadRequests();
+        }
+
+        function startEdit(index) {
+            const requests = JSON.parse(localStorage.getItem('requests'));
+            const request = requests[index];
+            const tableBody = document.getElementById('requestTableBody');
+            const row = tableBody.rows[index];
+
+            const cells = row.getElementsByTagName('td');
+            Array.from(cells).slice(0, -1).forEach((cell, i) => {
+                cell.innerHTML = `<input type="text" value="${cell.innerText}">`;
+            });
+
+            const saveBtn = document.createElement('button');
+            saveBtn.className = 'save-btn';
+            saveBtn.innerText = 'Save';
+            saveBtn.addEventListener('click', () => saveEdit(index));
+            cells[cells.length - 1].appendChild(saveBtn);
+        }
+
+        function saveEdit(index) {
+            const requests = JSON.parse(localStorage.getItem('requests'));
+            const row = document.getElementById('requestTableBody').rows[index];
+            const inputs = row.getElementsByTagName('input');
+
+            requests[index] = {
+                nomor_request: inputs[0].value,
+                quantity: inputs[1].value,
+                department: inputs[2].value,
+                nama: inputs[3].value,
+                peminjam: inputs[4].value,
+                item: inputs[5].value
+            };
+            localStorage.setItem('requests', JSON.stringify(requests));
+            loadRequests();
+        }
+
+        function deleteRequest(index) {
+            const requests = JSON.parse(localStorage.getItem('requests'));
+            lastDeletedRequest = requests.splice(index, 1)[0];
+            lastDeletedRowIndex = index;
+            localStorage.setItem('requests', JSON.stringify(requests));
+            loadRequests();
+            document.getElementById('undoBtn').style.display = 'inline';
+        }
+
+        function undoDelete() {
+            if (lastDeletedRequest !== null) {
+                const requests = JSON.parse(localStorage.getItem('requests')) || [];
+                requests.splice(lastDeletedRowIndex, 0, lastDeletedRequest);
+                localStorage.setItem('requests', JSON.stringify(requests));
+                loadRequests();
+                lastDeletedRequest = null;
+                lastDeletedRowIndex = null;
+                document.getElementById('undoBtn').style.display = 'none';
+            }
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const rows = document.getElementById('requestTableBody').getElementsByTagName('tr');
+            Array.from(rows).forEach(row => {
+                const cells = row.getElementsByTagName('td');
+                const matches = Array.from(cells).some(cell => cell.innerText.toLowerCase().includes(searchTerm));
+                row.style.display = matches ? '' : 'none';
+            });
+        }
+
+        function sortTable() {
+            const sortBy = document.getElementById('sortBar').value;
+            const table = document.getElementById('requestTable');
+            const rows = Array.from(table.rows).slice(1);
+            rows.sort((a, b) => {
+                const cellA = a.cells[sortBy].innerText.toLowerCase();
+                const cellB = b.cells[sortBy].innerText.toLowerCase();
+                return cellA < cellB ? -1 : cellA > cellB ? 1 : 0;
+            });
+            rows.forEach(row => table.appendChild(row));
+        }
+
+        function printTable() {
+            const tableContent = document.getElementById('requestTable').outerHTML;
+            const originalContent = document.body.innerHTML;
+            document.body.innerHTML = `<html><head><title>Print</title></head><body>${tableContent}</body></html>`;
+            window.print();
+            document.body.innerHTML = originalContent;
+            window.location.reload();
+        }
+
+        function logout() {
+            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

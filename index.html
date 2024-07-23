@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Asset IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .top-bar {
+            background-color: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+            z-index: 1000;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h3 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .navigation {
+            list-style-type: none;
+            padding: 0;
+        }
+        .navigation li {
+            margin: 10px 0;
+        }
+        .navigation li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .navigation li a:hover {
+            background-color: #34495e;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            margin: 20px;
+            border-radius: 8px;
+        }
+        .icon-links {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .icon-link {
+            text-align: center;
+            margin: 20px;
+            transition: transform 0.3s ease;
+        }
+        .icon-link:hover {
+            transform: scale(1.05);
+        }
+        .icon-link img {
+            width: 130px;
+            height: 140px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .icon-link h2 {
+            margin-top: 10px;
+            color: #2c3e50;
+        }
+        .logout-btn {
+            background-color: #99564f;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Dashboard Karyawan</h1>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul class="navigation">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Dashboard</a></li>
+                <li><a href="karyawan.html"><i class="fas fa-users"></i> Karyawan</a></li>
+                <li><a href="request.html"><i class="fas fa-file-alt"></i> Request</a></li>
+                <li><a href="result.html"><i class="fas fa-chart-bar"></i> Result</a></li>
+            </ul>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
+
+        <div class="main-content">
+            <div class="icon-links">
+                <div class="icon-link">
+                    <a href="dashboard.html">
+                        <img src="dashboard_icon.png" alt="Dashboard">
+                        <h2>Dashboard</h2>
+                    </a>
+                </div>
+                <div class="icon-link">
+                    <a href="karyawan.html">
+                        <img src="karyawan_icon.png" alt="Karyawan">
+                        <h2>Karyawan</h2>
+                    </a>
+                </div>
+                <div class="icon-link">
+                    <a href="request.html">
+                        <img src="request_icon.png" alt="Request">
+                        <h2>Request</h2>
+                    </a>
+                </div>
+                <div class="icon-link">
+                    <a href="result.html">
+                        <img src="result_icon.png" alt="Result">
+                        <h2>Result</h2>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function logout() {
+            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
+            window.location.href = 'login.html';
+        }
+    </script>
+</body>
+</html>

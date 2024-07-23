@@ -1,0 +1,271 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Form - Asset IT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; display: flex; flex-direction: column; }
+        .top-bar { background-color: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: center; align-items: center; }
+        .auth-buttons {position: absolute; right: 20px; gap: 70px;}
+        .auth-buttons button { background-color: #3498db; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
+        .container { display: flex; flex: 1; }
+        .sidebar { width: 250px; background-color: #2c3e50; color: white; padding: 20px; height: 100vh; box-sizing: border-box; }
+        .sidebar h3 { font-size: 28px; margin-bottom: 20px; }
+        .sidebar ul { list-style-type: none; padding: 0; }
+        .sidebar ul li a { color: white; text-decoration: none; display: block; padding: 10px 0; }
+        .main-content { flex: 1; padding: 20px; }
+        form { background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        form label { display: block; margin-top: 10px; font-weight: bold; color: #34495e; position: relative; }
+        form label .required-asterisk { color: red; position: absolute; top: 0; }
+        form input[type="text"], form select,
+        form textarea,
+        form input[type="date"],
+        form input[type="file"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            background-color: transparent;
+            color: grey;
+        }
+        form input[type="text"]::placeholder,
+        form select::placeholder,
+        form textarea::placeholder,
+        form input[type="date"]::placeholder,
+        form input[type="file"]::placeholder {
+            color: grey;
+        }
+        form input[type="submit"] { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #3498db; color: white; cursor: pointer; }
+        .edit-btn, .delete-btn { margin-right: 5px; padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; color: white; }
+        .edit-btn { background-color: #2ecc71; }
+        .delete-btn { background-color: #e74c3c; }
+        #searchInput { width: 200px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; }
+        .success-alert { background-color: #2ecc71; color: white; text-align: center; padding: 10px; margin-top: 20px; display: none; border-radius: 4px; }
+        .print-button { margin-bottom: 10px; text-align: right; }
+        .print-button button { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <h1>Result Form</h1>
+        <div class="auth-buttons">
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button onclick="window.location.href='login.html'">Logout</button>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="sidebar">
+            <h3>Menu</h3>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="karyawan.html">Karyawan</a></li>
+                <li><a href="request.html">Request</a></li>
+                <li><a href="result.html">Result</a></li>
+            </ul>
+        </div>
+
+        <div class="main-content">
+            <form id="resultForm">
+                <label for="nama">Nama <span class="required-asterisk">*</span></label>
+                <input type="text" id="nama" required>
+                <label for="npk">NPK <span class="required-asterisk">*</span></label>
+                <input type="text" id="npk" required>
+                <label for="kebutuhan">Kebutuhan <span class="required-asterisk">*</span></label>
+                <select id="kebutuhan" required>
+                    <option value="Peminjaman Aset">Peminjaman Aset</option>
+                    <option value="Permintaan Aset">Permintaan Aset</option>
+                </select>
+                <label for="item">Item <span class="required-asterisk">*</span></label>
+                <select id="item" required>
+                    <option value="laptop">Laptop</option>
+                    <option value="chair">Chair</option>
+                    <option value="printer">Printer</option>
+                    <option value="stapler">Stapler</option>
+                    <option value="Whiteboard">Whiteboard</option>
+                    <option value="lamp">Desk Lamp</option>
+                    <option value="notebook">Notebook</option>
+                    <option value="cabinet">File Cabinet</option>
+                    <option value="monitor">Monitor</option>
+                    <option value="bookshelf">Bookshelf</option>
+                </select>
+                <label for="department">dep <span class="required-asterisk">*</span></label>
+                <select id="department" required>
+                    <option value="Engineering">Engineering</option>
+                    <option value="QC">QC</option>
+                    <option value="Produksi">Produksi</option>
+                    <option value="General Affair">General Affair</option>
+                    <option value="HRD">HRD</option>
+                    <option value="Accounting">Accounting</option>
+                    <option value="Purchasing">Purchasing</option>
+                    <option value="PPiC">PPiC</option>
+                    <option value="Maintenance">Maintenance</option>
+                    <option value="IT">IT</option>
+                    <option value="Finance">Finance</option>
+                </select>
+                <textarea id="keperluan" placeholder="Keperluan" required></textarea>
+                <label for="status">Status <span class="required-asterisk">*</span></label>
+                <select id="status" required>
+                    <option value="Disetujui">Disetujui</option>
+                    <option value="Belum Disetujui">Belum Disetujui</option>
+                    <option value="Diasetkan">Diasetkan</option>
+                </select>
+                <input type="submit" value="Submit Result">
+            </form>
+
+            <div class="success-alert" id="successAlert">Data successfully submitted!</div>
+
+            <input type="text" id="searchInput" placeholder="Search...">
+            <div class="print-button">
+                <button onclick="printTable()">Print</button>
+            </div>
+
+            <table id="resultTable">
+                <thead>
+                    <tr>
+                        <th onclick="sortTable(0)">Nama</th>
+                        <th onclick="sortTable(1)">NPK</th>
+                        <th onclick="sortTable(2)">Kebutuhan</th>
+                        <th onclick="sortTable(3)">Item</th>
+                        <th onclick="sortTable(4)">Department</th>
+                        <th onclick="sortTable(5)">Keperluan</th>
+                        <th onclick="sortTable(6)">Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="resultTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', loadResults);
+        document.getElementById('resultForm').addEventListener('submit', handleSubmit);
+        document.getElementById('searchInput').addEventListener('input', function() {
+            filterResults(this.value);
+        });
+
+        function handleSubmit(e) {
+            e.preventDefault();
+            const result = {
+                nama: document.getElementById('nama').value,
+                npk: document.getElementById('npk').value,
+                kebutuhan: document.getElementById('kebutuhan').value,
+                item: document.getElementById('item').value,
+                department: document.getElementById('department').value,
+                keperluan: document.getElementById('keperluan').value,
+                status: document.getElementById('status').value
+            };
+            saveResult(result);
+            addResultToTable(result);
+            this.reset();
+            document.getElementById('successAlert').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('successAlert').style.display = 'none';
+            }, 3000);
+        }
+
+        function saveResult(result) {
+            const results = JSON.parse(localStorage.getItem('results')) || [];
+            results.push(result);
+            localStorage.setItem('results', JSON.stringify(results));
+        }
+
+        function loadResults() {
+            const results = JSON.parse(localStorage.getItem('results')) || [];
+            results.forEach(result => addResultToTable(result));
+        }
+
+        function addResultToTable(result) {
+            const tableBody = document.getElementById('resultTableBody');
+            const row = tableBody.insertRow();
+            row.innerHTML = `
+                <td>${result.nama}</td>
+                <td>${result.npk}</td>
+                <td>${result.kebutuhan}</td>
+                <td>${result.item}</td>
+                <td>${result.department}</td>
+                <td>${result.keperluan}</td>
+                <td>${result.status}</td>
+                <td>
+                    <button class="edit-btn" onclick="editResult(this)">Edit</button>
+                    <button class="delete-btn" onclick="deleteResult(this)">Delete</button>
+                </td>
+            `;
+        }
+
+        function editResult(button) {
+            const row = button.parentNode.parentNode;
+            const cells = row.cells;
+            document.getElementById('nama').value = cells[0].textContent;
+            document.getElementById('npk').value = cells[1].textContent;
+            document.getElementById('kebutuhan').value = cells[2].textContent;
+            document.getElementById('item').value = cells[3].textContent;
+            document.getElementById('department').value = cells[4].textContent;
+            document.getElementById('keperluan').value = cells[5].textContent;
+            document.getElementById('status').value = cells[6].textContent;
+            row.remove();
+        }
+
+        function deleteResult(button) {
+            const row = button.parentNode.parentNode;
+            row.remove();
+            updateLocalStorage();
+        }
+
+        function updateLocalStorage() {
+            const results = [];
+            const rows = document.querySelectorAll('#resultTableBody tr');
+            rows.forEach(row => {
+                const cells = row.cells;
+                results.push({
+                    nama: cells[0].textContent,
+                    npk: cells[1].textContent,
+                    kebutuhan: cells[2].textContent,
+                    item: cells[3].textContent,
+                    department: cells[4].textContent,
+                    keperluan: cells[5].textContent,
+                    status: cells[6].textContent
+                });
+            });
+            localStorage.setItem('results', JSON.stringify(results));
+        }
+
+        function filterResults(query) {
+            const rows = document.querySelectorAll('#resultTableBody tr');
+            rows.forEach(row => {
+                const text = row.textContent.toLowerCase();
+                row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+            });
+        }
+
+        function sortTable(columnIndex) {
+            const tableBody = document.getElementById('resultTableBody');
+            const rows = Array.from(tableBody.rows);
+            rows.sort((a, b) => {
+                const aValue = a.cells[columnIndex].textContent.toLowerCase();
+                const bValue = b.cells[columnIndex].textContent.toLowerCase();
+                return aValue.localeCompare(bValue);
+            });
+            rows.forEach(row => tableBody.appendChild(row));
+        }
+
+        function printTable() {
+            const printWindow = window.open('', '', 'height=500,width=800');
+            printWindow.document.write('<html><head><title>Print Table</title></head><body>');
+            printWindow.document.write(document.getElementById('resultTable').outerHTML);
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
+        }
+    </script>
+</body>
+</html>
