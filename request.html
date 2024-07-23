@@ -384,6 +384,8 @@
                 peminjam: document.getElementById('peminjam').value,
                 item: document.getElementById('item').value
             };
+            saveNamesToLocalStorage();
+    loadRequests();
             requests.push(newRequest);
             localStorage.setItem('requests', JSON.stringify(requests));
             document.getElementById('requestForm').reset();
@@ -401,7 +403,66 @@
             Array.from(cells).slice(0, -1).forEach((cell, i) => {
                 cell.innerHTML = `<input type="text" value="${cell.innerText}">`;
             });
+document.addEventListener('DOMContentLoaded', function() {
+    // Existing code...
 
+    const addNewNameBtn = document.getElementById('addNewNameBtn');
+    const addNameModal = document.getElementById('addNameModal');
+    const saveNewNameBtn = document.getElementById('saveNewNameBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const newNameInput = document.getElementById('newNameInput');
+    const namaSelect = document.getElementById('Nama');
+
+    addNewNameBtn.addEventListener('click', function() {
+        addNameModal.style.display = 'block';
+    });
+
+    closeModalBtn.addEventListener('click', function() {
+        addNameModal.style.display = 'none';
+    });
+
+    saveNewNameBtn.addEventListener('click', function() {
+        const newName = newNameInput.value.trim();
+        if (newName) {
+            // Add new name to both select elements
+            addNameToSelect(namaSelect, newName);
+            addNameToSelect(document.getElementById('peminjam'), newName);
+            
+            // Save updated name list to localStorage
+            saveNamesToLocalStorage();
+            
+            // Close modal and clear input
+            addNameModal.style.display = 'none';
+            newNameInput.value = '';
+        }
+    });
+
+    // Load saved names from localStorage
+    loadNamesFromLocalStorage();
+});
+
+function addNameToSelect(selectElement, name) {
+    const option = document.createElement('option');
+    option.value = name;
+    option.textContent = name;
+    selectElement.appendChild(option);
+}
+
+function saveNamesToLocalStorage() {
+    const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
+    localStorage.setItem('employeeNames', JSON.stringify(names));
+}
+
+function loadNamesFromLocalStorage() {
+    const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
+    const namaSelect = document.getElementById('Nama');
+    const peminjamSelect = document.getElementById('peminjam');
+    
+    savedNames.forEach(name => {
+        addNameToSelect(namaSelect, name);
+        addNameToSelect(peminjamSelect, name);
+    });
+}
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
             saveBtn.innerText = 'Save';
