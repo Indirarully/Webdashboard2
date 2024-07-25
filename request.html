@@ -84,7 +84,7 @@
             margin-top: 20px;
         }
         .logout-btn:hover {
-            background-color: #c0392b;
+            background-color: #f28b82;
         }
         .main-content {
             flex: 1;
@@ -239,12 +239,12 @@
             <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="main-content">
-            <h2>Request Form</h2>
+            <br>
             <div class="button-group">
-                <button id="addButton" class="print-btn">Add</button>
-                <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
-                <button id="addNewNameBtn" class="print-btn">Add New Name</button>
-                <button class="print-btn" onclick="printTableData()">Print</button>
+                <button id="addButton" class="print-btn"><i class="fas fa-plus"></i> Add</button>
+<button id="itemButton" onclick="window.location.href='item.html'"><i class="fas fa-box"></i> Item Assets</button>
+<button id="addNewNameBtn" class="print-btn"><i class="fas fa-user-plus"></i> Add New Name</button>
+<button class="print-btn" onclick="printTableData()"><i class="fas fa-print"></i> Print</button>
             </div>
             <form id="requestForm">
                 <label for="nomor_request">Nomor Request</label>
