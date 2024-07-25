@@ -201,28 +201,15 @@
             gap: 10px;
             margin-bottom: 20px;
         }
-        .logout-btn {
-            background-color: red;
-            color: white;
-            padding: 14px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 19px;
-            transition: background-color 0.3s ease;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .logout-btn:hover {
-            background-color: #c0392b;
-        }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <h1>Request Form</h1>
         <div class="auth-buttons">
-            <button onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
+            <button onclick="window.location.href='login.html'">Login</button>
+            <button onclick="window.location.href='login.html'">Logout</button>
+        </div>
     </div>
     <div class="container">
         <div class="sidebar">
@@ -232,9 +219,7 @@
                 <li><a href="karyawan.html">Karyawan</a></li>
                 <li><a href="request.html">Request</a></li>
                 <li><a href="result.html">Result</a></li>
-        </div>
             </ul>
-        <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="main-content">
             <h2>Request Form</h2>
@@ -242,7 +227,7 @@
                 <button id="addButton" class="print-btn">Add</button>
                 <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
                 <button id="addNewNameBtn" class="print-btn">Add New Name</button>
-                <button class="print-btn" onclick="printTableData()">Print</button>
+                <button class="print-btn" onclick="printTableData()">CETAK DATA</button>
             </div>
             <form id="requestForm">
                 <label for="nomor_request">Nomor Request</label>
@@ -265,37 +250,11 @@
                 </select>
                 <label for="Nama">Nama</label>
                 <select id="Nama" required>
-                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
-                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
-                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
-                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <!-- Options will be dynamically populated -->
                 </select>
                 <label for="peminjam">Peminjam</label>
                 <select id="peminjam" required>
-                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
-                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
-                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
-                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <!-- Options will be dynamically populated -->
                 </select>
                 <label for="item">Item</label>
                 <select id="item" required>
@@ -426,6 +385,7 @@
                 actionCell.appendChild(deleteBtn);
             });
         }
+
         function addRequest() {
             const requests = JSON.parse(localStorage.getItem('requests')) || [];
             const newRequest = {
@@ -564,10 +524,7 @@
                 row.deleteCell(-1); // Remove the Action column
                 printWindow.document.write(row.outerHTML);
             }
-            function logout() {
-            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
-            window.location.href = 'login.html';
-        }
+            
             printWindow.document.write('</table>');
             printWindow.document.write('</body></html>');
             printWindow.document.close();
