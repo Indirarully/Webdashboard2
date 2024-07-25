@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/style.css">
-    <link rel="stylesheet" href="../../icon/css/all.min.css">
+    <!-- Mengganti link Font Awesome dengan CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>Request Form - Asset IT</title>
     <style>
         body {
@@ -242,9 +243,9 @@
             <br>
             <div class="button-group">
                 <button id="addButton" class="print-btn"><i class="fas fa-plus"></i> Add</button>
-<button id="itemButton" onclick="window.location.href='item.html'"><i class="fas fa-box"></i> Item Assets</button>
-<button id="addNewNameBtn" class="print-btn"><i class="fas fa-user-plus"></i> Add New Name</button>
-<button class="print-btn" onclick="printTableData()"><i class="fas fa-print"></i> Print</button>
+                <button id="itemButton" onclick="window.location.href='item.html'"><i class="fas fa-box"></i> Item Assets</button>
+                <button id="addNewNameBtn" class="print-btn"><i class="fas fa-user-plus"></i> Add New Name</button>
+                <button class="print-btn" onclick="printTableData()"><i class="fas fa-print"></i> Print</button>
             </div>
             <form id="requestForm">
                 <label for="nomor_request">Nomor Request</label>
@@ -343,7 +344,6 @@
         </div>
     </div>
 
-    <!-- Modal for adding new name -->
     <div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
         <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
             <h2>Add New Name</h2>
@@ -417,13 +417,13 @@
                 const actionCell = row.insertCell(6);
                 const editBtn = document.createElement('button');
                 editBtn.className = 'edit-btn';
-                editBtn.innerText = 'Edit';
+                editBtn.innerHTML = '<i class="fas fa-edit"></i> Edit';
                 editBtn.addEventListener('click', () => startEdit(index));
                 actionCell.appendChild(editBtn);
 
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
-                deleteBtn.innerText = 'Delete';
+                deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
                 deleteBtn.addEventListener('click', () => deleteRequest(index));
                 actionCell.appendChild(deleteBtn);
             });
@@ -459,7 +459,7 @@
 
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
-            saveBtn.innerText = 'Save';
+            saveBtn.innerHTML = '<i class="fas fa-save"></i> Save';
             saveBtn.addEventListener('click', () => saveEdit(index));
             cells[cells.length - 1].appendChild(saveBtn);
         }
