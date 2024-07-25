@@ -34,6 +34,14 @@
         .success-alert { background-color: #2ecc71; color: white; text-align: center; padding: 10px; margin-top: 20px; display: none; border-radius: 4px; }
         .print-button { margin-bottom: 10px; text-align: right; }
         .print-button button, #addNewNameBtn { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        .action-column {
+            display: table-cell;
+        }
+        @media print {
+            .action-column, .foto-column {
+                display: none;
+            }
+        }
     </style>
 </head>
 <body>
@@ -120,8 +128,8 @@
                         <th>Status</th>
                         <th>Note</th>
                         <th>Lama Peminjaman</th>
-                        <th>Foto</th>
-                        <th>Action</th>
+                        <th class="foto-column">Foto</th>
+                        <th class="action-column">Action</th>
                     </tr>
                 </thead>
                 <tbody id="resultTableBody"></tbody>
@@ -151,18 +159,20 @@
             newRow.insertCell().textContent = document.getElementById('lama_peminjaman').value + ' hari';
 
             var fotoInput = document.getElementById('foto');
+            var fotoCell = newRow.insertCell();
+            fotoCell.className = 'foto-column';
             if (fotoInput.files.length > 0) {
                 var fotoURL = URL.createObjectURL(fotoInput.files[0]);
-                var fotoCell = newRow.insertCell();
                 var fotoImg = document.createElement('img');
                 fotoImg.src = fotoURL;
                 fotoImg.style.width = '50px';
                 fotoCell.appendChild(fotoImg);
             } else {
-                newRow.insertCell().textContent = 'No photo';
+                fotoCell.textContent = 'No photo';
             }
 
             var actionCell = newRow.insertCell();
+            actionCell.className = 'action-column';
             var editBtn = document.createElement('button');
             editBtn.className = 'edit-btn';
             editBtn.textContent = 'Edit';
@@ -242,7 +252,7 @@
             }
             localStorage.setItem('tableData', JSON.stringify(data));
         }
-
+        
         function loadDataFromLocalStorage() {
             var tableBody = document.getElementById('resultTableBody');
             tableBody.innerHTML = '';
@@ -252,44 +262,33 @@
                 for (var j = 0; j < data[i].length; j++) {
                     var newCell = newRow.insertCell();
                     newCell.innerHTML = data[i][j];
+                    if (j === data[i].length - 2) {  // Foto column
+                        newCell.className = 'foto-column';
+                    }
                 }
                 var actionCell = newRow.insertCell();
+                actionCell.className = 'action-column';
                 var editBtn = document.createElement('button');
                 editBtn.className = 'edit-btn';
                 editBtn.textContent = 'Edit';
-                editBtn.onclick = function() { editRow(newRow); };
+                editBtn.onclick = function() { editRow(this.parentNode.parentNode); };
                 var deleteBtn = document.createElement('button');
                 deleteBtn.className = 'delete-btn';
                 deleteBtn.textContent = 'Delete';
-                deleteBtn.onclick = function() { deleteRow(newRow); };
+                deleteBtn.onclick = function() { deleteRow(this.parentNode.parentNode); };
                 actionCell.appendChild(editBtn);
                 actionCell.appendChild(deleteBtn);
             }
         }
 
-      function printTable() {
+        function printTable() {
             var table = document.getElementById('resultTable');
             var printWindow = window.open('', '_blank');
             printWindow.document.write('<html><head><title>Print Table</title>');
-            printWindow.document.write('<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; }</style>');
+            printWindow.document.write('<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } .action-column, .foto-column { display: none; }</style>');
             printWindow.document.write('</head><body>');
-            printWindow.document.write('<table>');
-            
-            // Copy header row
-            var headerRow = table.rows[0].cloneNode(true);
-            headerRow.deleteCell(-1); // Remove Action column
-            headerRow.deleteCell(-1); // Remove Foto column
-            printWindow.document.write(headerRow.outerHTML);
-            
-            // Copy and modify data rows
-            for (var i = 1; i < table.rows.length; i++) {
-                var row = table.rows[i].cloneNode(true);
-                row.deleteCell(-1); // Remove Action column
-                row.deleteCell(-1); // Remove Foto column
-                printWindow.document.write(row.outerHTML);
-            }
-            
-            printWindow.document.write('</table></body></html>');
+            printWindow.document.write(table.outerHTML);
+            printWindow.document.write('</body></html>');
             printWindow.document.close();
             printWindow.print();
         }
