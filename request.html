@@ -201,15 +201,28 @@
             gap: 10px;
             margin-bottom: 20px;
         }
+        .logout-btn {
+            background-color: red;
+            color: white;
+            padding: 14px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 19px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+            margin-top: 20px;
+        }
+        .logout-btn:hover {
+            background-color: #c0392b;
+        }
     </style>
 </head>
 <body>
     <div class="top-bar">
         <h1>Request Form</h1>
         <div class="auth-buttons">
-            <button onclick="window.location.href='login.html'">Login</button>
-            <button onclick="window.location.href='login.html'">Logout</button>
-        </div>
+            <button onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
     </div>
     <div class="container">
         <div class="sidebar">
@@ -219,6 +232,8 @@
                 <li><a href="karyawan.html">Karyawan</a></li>
                 <li><a href="request.html">Request</a></li>
                 <li><a href="result.html">Result</a></li>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+        </div>
             </ul>
         </div>
         <div class="main-content">
@@ -227,7 +242,7 @@
                 <button id="addButton" class="print-btn">Add</button>
                 <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
                 <button id="addNewNameBtn" class="print-btn">Add New Name</button>
-                <button class="print-btn" onclick="printTableData()">CETAK DATA</button>
+                <button class="print-btn" onclick="printTableData()">Print</button>
             </div>
             <form id="requestForm">
                 <label for="nomor_request">Nomor Request</label>
@@ -385,7 +400,10 @@
                 actionCell.appendChild(deleteBtn);
             });
         }
-
+        function logout() {
+            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
+            window.location.href = 'login.html';
+        }
         function addRequest() {
             const requests = JSON.parse(localStorage.getItem('requests')) || [];
             const newRequest = {
