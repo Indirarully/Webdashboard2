@@ -10,9 +10,10 @@
         .top-bar h1 {margin: 0; font-size: 32px; color: white;}
         .auth-buttons {position: absolute; right: 10px;}
         .auth-buttons button {background-color: #3498db; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;}
-        .sidebar {width: 240px; background-color: #2c3e50; color: white; padding: 20px; height: calc(100vh - 120px); position: fixed; top: 120px; left: 0; overflow-y: auto;}
-        .sidebar a {color: white; text-decoration: none; display: block; padding: 10px 0;}
-        .sidebar h2 {font-size: 28px; color: white; margin-bottom: 20px;}
+        .sidebar {width: 240px; background-color: #2c3e50; color: white; padding: 20px; height: calc(100vh - 120px); position: fixed; top: 120px; left: 0; overflow-y: auto; display: flex; flex-direction: column; justify-content: space-between;}
+        .sidebar a {color: white; text-decoration: none; display: block; padding: 15px 0; font-size: 18px; transition: background-color 0.3s;}
+        .sidebar a:hover {background-color: #34495e;}
+        .sidebar h2 {font-size: 28px; color: white; margin-bottom: 30px;}
         .main-content {flex: 1; padding: 140px 20px 20px 290px; margin-left: 0;}
         form {background-color: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
         input[type="text"], select, textarea, input[type="file"] {width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px;}
@@ -20,7 +21,7 @@
         table {width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
         th, td {text-align: left; padding: 12px; border-bottom: 1px solid #ddd;}
         th {background-color: #3498db; color: white;}
-        .print-button, .toggle-button, .add-name-button {
+        .print-button, .toggle-button {
             background-color: #3498db;
             color: white;
             padding: 10px 20px;
@@ -39,7 +40,7 @@
         .kebutuhan-options label {display: flex; align-items: center; gap: 5px;}
         #searchInput, #sortInput {width: 200px; display: inline-block; margin-right: 10px;}
         .logout-btn {
-            background-color: #f28b82;
+            background-color: #99564f;
             color: white;
             padding: 10px 20px;
             border: none;
@@ -56,6 +57,7 @@
         .controls {margin-bottom: 20px;}
         @media print {.action-buttons, td:nth-last-child(1), td:nth-last-child(2), th:nth-last-child(1), th:nth-last-child(2), .print-button, .toggle-button, .top-bar, .sidebar {display: none !important;}}
         .success-alert {display: none; background-color: #2ecc71; color: white; padding: 10px; border-radius: 4px; margin-top: 10px;}
+        .form-label {color: #3498db; font-weight: bold; margin-top: 10px; display: block;}
     </style>
 </head>
 <body>
@@ -63,20 +65,24 @@
         <h1>Karyawan</h1>
         <div class="auth-buttons">
             <button onclick="window.location.href='login.html'"><i class="fas fa-user"></i>Login</button>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
     </div>
     <div class="sidebar">
-        <h2>MENU</h2>
-        <a href="index.html">Dashboard</a>
-        <a href="karyawan.html">Karyawan</a>
-        <a href="request.html">Request</a>
-        <a href="result.html">Result</a>
+        <div>
+            <h2>MENU</h2>
+            <a href="index.html">Dashboard</a>
+            <a href="karyawan.html">Karyawan</a>
+            <a href="request.html">Request</a>
+            <a href="result.html">Result</a>
+        </div>
         <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
     <div class="main-content">
         <div id="employeeForm" style="display: none;">
             <form id="addEmployeeForm">
-                 <select id="Nama" required>
+                <label for="Nama" class="form-label">Nama</label>
+                <select id="Nama" required>
                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
                     <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
                     <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
@@ -92,7 +98,8 @@
                     <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
                     <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
                 </select>
-                <label for="npk">npk</label>
+
+                <label for="npk" class="form-label">NPK</label>
                 <select id="npk" required>
                     <option value="12355">12355</option>
                     <option value="12364">12364</option>
@@ -109,11 +116,14 @@
                     <option value="12363">12363</option>
                     <option value="12391">12391</option>
                 </select>
+
+                <label class="form-label">Kebutuhan</label>
                 <div class="kebutuhan-options">
                     <label><input type="radio" name="kebutuhan" value="Peminjaman Aset" required> Peminjaman Aset</label>
                     <label><input type="radio" name="kebutuhan" value="Permintaan Aset" required> Permintaan Aset</label>
                 </div>
-                <label for ="item">item</label>
+
+                <label for="item" class="form-label">Item</label>
                 <select id="item" required>
                     <option value="Laptop">Laptop</option>
                     <option value="Chair">Chair</option>
@@ -124,8 +134,10 @@
                     <option value="Cabinet">Cabinet</option>
                     <option value="Notebook">Notebook</option>
                     <option value="Monitor">Monitor</option>
-                    <option value="Speaker">Speaker</option> </select>
-                <label for ="department">department</label>
+                    <option value="Speaker">Speaker</option>
+                </select>
+
+                <label for="department" class="form-label">Department</label>
                 <select id="department" required>
                     <option value="Engineering">Engineering</option>
                     <option value="QC">QC</option>
@@ -139,12 +151,16 @@
                     <option value="IT">IT</option>
                     <option value="Finance">Finance</option>
                 </select>
+
+                <label for="keperluan" class="form-label">Note</label>
                 <textarea id="keperluan" placeholder="Keperluan" required></textarea>
+
+                <label for="foto" class="form-label">Foto</label>
                 <input type="file" id="foto" accept="image/*" required>
-                <br>
-                <label for="duration">Lama Peminjaman:</label>
+
+                <label for="duration" class="form-label">Lama Peminjaman</label>
                 <select id="duration" required></select>
-                <br>
+
                 <input type="submit" value="Tambah">
             </form>
             <div class="success-alert" id="successAlert" style="display: none;">Data successfully submitted!</div>
@@ -161,7 +177,6 @@
             </select>
             <button class="print-button" onclick="printTable()">Print</button>
             <button class="toggle-button" onclick="toggleForm()">Add</button>
-            <button class="add-name-button" id="addNewNameBtn">Add New Name</button>
         </div>
         <table id="employeeTable">
             <thead>              
@@ -180,8 +195,6 @@
             </thead>
             <tbody id="employeeTableBody"></tbody>
         </table>
-    </div>
-    <button type="button" id="addNewNameBtn">Add New Name</button>
     </div>
     <script>
         let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [];
@@ -256,7 +269,7 @@
                     <td>${employee.npk}</td>
                     <td>${employee.kebutuhan}</td>
                     <td>${employee.item}</td>
-                    <td>${employee.department}</td>
+                   <td>${employee.department}</td>
                     <td>${employee.keperluan}</td>
                     <td>${employee.duration}</td>
                     <td><img src="${employee.fotoData}" width="100"></td>
@@ -311,7 +324,7 @@
         }
 
         function deleteRow(index) {
-            if (confirm('Are you sure you want to delete this entry?')) {
+            if (confirm('Apakah Anda yakin ingin menghapus entri ini?')) {
                 employeeData.splice(index, 1);
                 localStorage.setItem('employeeData', JSON.stringify(employeeData));
                 renderTable();
@@ -356,13 +369,6 @@
             renderTable();
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
-            renderTable();
-            loadDurationOptions();
-            setupAddNewNameModal();
-            loadNamesFromLocalStorage();
-        });
-
         function loadDurationOptions() {
             const durationSelect = document.getElementById('duration');
             for (let i = 21; i <= 30; i++) {
@@ -373,49 +379,15 @@
             }
         }
 
-        function setupAddNewNameModal() {
-            const addNewNameBtn = document.getElementById('addNewNameBtn');
-            const addNameModal = document.getElementById('addNameModal');
-            const saveNewNameBtn = document.getElementById('saveNewNameBtn');
-            const closeModalBtn = document.getElementById('closeModalBtn');
-            const newNameInput = document.getElementById('newNameInput');
-
-            addNewNameBtn.addEventListener('click', () => addNameModal.style.display = 'block');
-            closeModalBtn.addEventListener('click', () => addNameModal.style.display = 'none');
-            saveNewNameBtn.addEventListener('click', saveNewName);
-
-            function saveNewName() {
-                const newName = newNameInput.value.trim();
-                if (newName) {
-                    addNameToSelect(document.getElementById('Nama'), newName);
-                    saveNamesToLocalStorage();
-                    addNameModal.style.display = 'none';
-                    newNameInput.value = '';
-                }
-            }
-        }
-
-        function addNameToSelect(selectElement, name) {
-            const option = document.createElement('option');
-            option.value = name;
-            option.textContent = name;
-            selectElement.appendChild(option);
-        }
-
-        function saveNamesToLocalStorage() {
-            const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
-            localStorage.setItem('employeeNames', JSON.stringify(names));
-        }
-
-        function loadNamesFromLocalStorage() {
-            const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
-            const namaSelect = document.getElementById('Nama');
-            savedNames.forEach(name => addNameToSelect(namaSelect, name));
-        }
         function logout() {
-            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
+            // Logika untuk logout (misalnya, membersihkan session storage, mengarahkan ke halaman login)
             window.location.href = 'login.html';
         }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderTable();
+            loadDurationOptions();
+        });
     </script>
 </body>
 </html>
