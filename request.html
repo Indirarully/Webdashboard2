@@ -24,7 +24,7 @@
             color: white;
             padding: 20px 10px;
             display: flex;
-            justify-content: center; /* Center the title */
+            justify-content: center;
             align-items: center;
             z-index: 1000;
             height: 60px;
@@ -102,7 +102,7 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
-        form input[type="submit"], .print-btn, #itemButton,#addButton {
+        form input[type="submit"], .print-btn, #itemButton, #addButton, #addNewNameBtn {
             background-color: #3498db;
             color: white;
             padding: 10px 20px;
@@ -110,8 +110,9 @@
             border-radius: 4px;
             cursor: pointer;
             margin-top: 10px;
+            margin-right: 10px;
         }
-        form input[type="submit"]:hover, .print-btn:hover, #addButton:hover {
+        form input[type="submit"]:hover, .print-btn:hover, #addButton:hover, #addNewNameBtn:hover {
             background-color: #2980b9;
         }
         table {
@@ -195,6 +196,11 @@
             outline: none;
             border-bottom: 1px solid #3498db;
         }
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
@@ -217,9 +223,12 @@
         </div>
         <div class="main-content">
             <h2>Request Form</h2>
-            <br><br>
-            <button id="addButton" class="print-btn">Add</button>
-            <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
+            <div class="button-group">
+                <button id="addButton" class="print-btn">Add</button>
+                <button id="itemButton" onclick="window.location.href='item.html'">Item Assets</button>
+                <button id="addNewNameBtn" class="print-btn">Add New Name</button>
+                <button class="print-btn" onclick="printTableData()">CETAK DATA</button>
+            </div>
             <form id="requestForm">
                 <label for="nomor_request">Nomor Request</label>
                 <input type="text" name="nomor_request" id="nomor_request" value="REQ/TI/2024/4681" readonly>
@@ -241,38 +250,12 @@
                 </select>
                 <label for="Nama">Nama</label>
                 <select id="Nama" required>
-                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
-                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
-                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
-                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <!-- Options will be dynamically populated -->
                 </select>
+                <label for="peminjam">Peminjam</label>
                 <select id="peminjam" required>
-                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
-                    <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
-                    <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
-                    <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <!-- Options will be dynamically populated -->
                 </select>
-                
                 <label for="item">Item</label>
                 <select id="item" required>
                     <option value="Laptop">Laptop</option>
@@ -285,6 +268,7 @@
                     <option value="Notebook">Notebook</option>
                     <option value="Monitor">Monitor</option>
                     <option value="Speaker">Speaker</option>
+                </select>
                 <input type="submit" value="Submit Request">
             </form>
             <div style="display: flex; align-items: center;">
@@ -300,7 +284,7 @@
             </div>
             <table id="requestTable">
                 <thead>
- <tr>
+                    <tr>
                         <th>Nomor Request</th>
                         <th>Quantity</th>
                         <th>Department</th>
@@ -312,39 +296,67 @@
                 </thead>
                 <tbody id="requestTableBody"></tbody>
             </table>
-    </div>
-        <button type="button" id="addNewNameBtn">Add New Name</button>
-
-<!-- Modal for adding new name -->
-<div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
-    <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
-        <h2>Add New Name</h2>
-        <input type="text" id="newNameInput" placeholder="Enter new name">
-        <button id="saveNewNameBtn">Save</button>
-        <button id="closeModalBtn">Close</button>
-            <button class="print-btn" onclick="printTable()">Print Table</button>
             <button class="undo-btn" id="undoBtn">Undo</button>
         </div>
+    </div>
+
+    <!-- Modal for adding new name -->
+    <div id="addNameModal" style="display:none; position: fixed; z-index: 1; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background-color: rgba(0,0,0,0.4);">
+        <div style="background-color: #fefefe; margin: 15% auto; padding: 20px; border: 1px solid #888; width: 80%;">
+            <h2>Add New Name</h2>
+            <input type="text" id="newNameInput" placeholder="Enter new name">
+            <button id="saveNewNameBtn">Save</button>
+            <button id="closeModalBtn">Close</button>
+        </div>
+    </div>
 
     <script>
         let lastDeletedRequest = null;
         let lastDeletedRowIndex = null;
 
-        document.addEventListener('DOMContentLoaded', loadRequests);
+        document.addEventListener('DOMContentLoaded', function() {
+            loadRequests();
+            loadNamesFromLocalStorage();
 
-        document.getElementById('addButton').addEventListener('click', () => {
-            document.getElementById('requestForm').classList.toggle('show');
+            document.getElementById('addButton').addEventListener('click', () => {
+                document.getElementById('requestForm').classList.toggle('show');
+            });
+
+            document.getElementById('requestForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                addRequest();
+            });
+
+            document.getElementById('undoBtn').addEventListener('click', undoDelete);
+
+            document.getElementById('searchInput').addEventListener('input', filterTable);
+            document.getElementById('sortBar').addEventListener('change', sortTable);
+
+            const addNewNameBtn = document.getElementById('addNewNameBtn');
+            const addNameModal = document.getElementById('addNameModal');
+            const saveNewNameBtn = document.getElementById('saveNewNameBtn');
+            const closeModalBtn = document.getElementById('closeModalBtn');
+            const newNameInput = document.getElementById('newNameInput');
+
+            addNewNameBtn.addEventListener('click', function() {
+                addNameModal.style.display = 'block';
+            });
+
+            closeModalBtn.addEventListener('click', function() {
+                addNameModal.style.display = 'none';
+            });
+
+            saveNewNameBtn.addEventListener('click', function() {
+                const newName = newNameInput.value.trim();
+                if (newName) {
+                    addNameToSelect(document.getElementById('Nama'), newName);
+                    addNameToSelect(document.getElementById('peminjam'), newName);
+                    saveNamesToLocalStorage();
+                    addNameModal.style.display = 'none';
+                    newNameInput.value = '';
+                }
+            });
         });
-
-        document.getElementById('requestForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            addRequest();
-        });
-
-        document.getElementById('undoBtn').addEventListener('click', undoDelete);
-
-        document.getElementById('searchInput').addEventListener('input', filterTable);
-        document.getElementById('sortBar').addEventListener('change', sortTable);
 
         function loadRequests() {
             const requests = JSON.parse(localStorage.getItem('requests')) || [];
@@ -380,12 +392,10 @@
                 nomor_request: document.getElementById('nomor_request').value,
                 quantity: document.getElementById('quantity').value,
                 department: document.getElementById('department').value,
-                nama: document.getElementById('nama').value,
+                nama: document.getElementById('Nama').value,
                 peminjam: document.getElementById('peminjam').value,
                 item: document.getElementById('item').value
             };
-            saveNamesToLocalStorage();
-    loadRequests();
             requests.push(newRequest);
             localStorage.setItem('requests', JSON.stringify(requests));
             document.getElementById('requestForm').reset();
@@ -403,66 +413,7 @@
             Array.from(cells).slice(0, -1).forEach((cell, i) => {
                 cell.innerHTML = `<input type="text" value="${cell.innerText}">`;
             });
-document.addEventListener('DOMContentLoaded', function() {
-    // Existing code...
 
-    const addNewNameBtn = document.getElementById('addNewNameBtn');
-    const addNameModal = document.getElementById('addNameModal');
-    const saveNewNameBtn = document.getElementById('saveNewNameBtn');
-    const closeModalBtn = document.getElementById('closeModalBtn');
-    const newNameInput = document.getElementById('newNameInput');
-    const namaSelect = document.getElementById('Nama');
-
-    addNewNameBtn.addEventListener('click', function() {
-        addNameModal.style.display = 'block';
-    });
-
-    closeModalBtn.addEventListener('click', function() {
-        addNameModal.style.display = 'none';
-    });
-
-    saveNewNameBtn.addEventListener('click', function() {
-        const newName = newNameInput.value.trim();
-        if (newName) {
-            // Add new name to both select elements
-            addNameToSelect(namaSelect, newName);
-            addNameToSelect(document.getElementById('peminjam'), newName);
-            
-            // Save updated name list to localStorage
-            saveNamesToLocalStorage();
-            
-            // Close modal and clear input
-            addNameModal.style.display = 'none';
-            newNameInput.value = '';
-        }
-    });
-
-    // Load saved names from localStorage
-    loadNamesFromLocalStorage();
-});
-
-function addNameToSelect(selectElement, name) {
-    const option = document.createElement('option');
-    option.value = name;
-    option.textContent = name;
-    selectElement.appendChild(option);
-}
-
-function saveNamesToLocalStorage() {
-    const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
-    localStorage.setItem('employeeNames', JSON.stringify(names));
-}
-
-function loadNamesFromLocalStorage() {
-    const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
-    const namaSelect = document.getElementById('Nama');
-    const peminjamSelect = document.getElementById('peminjam');
-    
-    savedNames.forEach(name => {
-        addNameToSelect(namaSelect, name);
-        addNameToSelect(peminjamSelect, name);
-    });
-}
             const saveBtn = document.createElement('button');
             saveBtn.className = 'save-btn';
             saveBtn.innerText = 'Save';
@@ -530,18 +481,54 @@ function loadNamesFromLocalStorage() {
             rows.forEach(row => table.appendChild(row));
         }
 
-        function printTable() {
-            const tableContent = document.getElementById('requestTable').outerHTML;
-            const originalContent = document.body.innerHTML;
-            document.body.innerHTML = `<html><head><title>Print</title></head><body>${tableContent}</body></html>`;
-            window.print();
-            document.body.innerHTML = originalContent;
-            window.location.reload();
+        function addNameToSelect(selectElement, name) {
+            const option = document.createElement('option');
+            option.value = name;
+            option.textContent = name;
+            selectElement.appendChild(option);
         }
 
-        function logout() {
-            // Logic for logging out (e.g., clearing session storage, redirecting to login page)
-            window.location.href = 'login.html';
+        function saveNamesToLocalStorage() {
+            const names = Array.from(document.getElementById('Nama').options).map(option => option.value);
+            localStorage.setItem('employeeNames', JSON.stringify(names));
+        }
+
+        function loadNamesFromLocalStorage() {
+            const savedNames = JSON.parse(localStorage.getItem('employeeNames')) || [];
+            const namaSelect = document.getElementById('Nama');
+            const peminjamSelect = document.getElementById('peminjam');
+            
+            savedNames.forEach(name => {
+                addNameToSelect(namaSelect, name);
+                addNameToSelect(peminjamSelect, name);
+            });
+        }
+
+        function printTableData() {
+            const table = document.getElementById('requestTable');
+            const printWindow = window.open('', '', 'height=600,width=800');
+            printWindow.document.write('<html><head><title>Print Table</title>');
+            printWindow.document.write('<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; }</style>');
+            printWindow.document.write('</head><body>');
+            printWindow.document.write('<h1>Request Table Data</h1>');
+            printWindow.document.write('<table>');
+            
+            // Copy table header
+            const headerRow = table.rows[0].cloneNode(true);
+            headerRow.deleteCell(-1); // Remove the Action column
+            printWindow.document.write(headerRow.outerHTML);
+            
+            // Copy table body, excluding the Action column
+            for (let i = 1; i < table.rows.length; i++) {
+                const row = table.rows[i].cloneNode(true);
+                row.deleteCell(-1); // Remove the Action column
+                printWindow.document.write(row.outerHTML);
+            }
+            
+            printWindow.document.write('</table>');
+            printWindow.document.write('</body></html>');
+            printWindow.document.close();
+            printWindow.print();
         }
     </script>
 </body>
