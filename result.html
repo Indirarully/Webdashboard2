@@ -7,11 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; display: flex; flex-direction: column; }
-        .top-bar { background-color: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: center; align-items: center; }
+        .top-bar { background-color: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: center; align-items: center; padding: 20px;
+            position: fixed;
+            overflow-x: auto;}
         .auth-buttons {position: absolute; right: 20px; gap: 70px;}
         .auth-buttons button { background-color: #3498db; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
         .container { display: flex; flex: 1; }
-        .sidebar { width: 250px; background-color: #2c3e50; color: white; padding: 20px; height: 100vh; box-sizing: border-box; }
+        .sidebar { width: 250px; background-color: #2c3e50; color: white; padding: 20px;
+            height: calc(100vh - 100px); /* Subtract top bar height */
+            box-sizing: border-box;
+            position: fixed;
+            overflow-y: auto; }
         .sidebar h3 { font-size: 28px; margin-bottom: 20px; }
         .sidebar ul { list-style-type: none; padding: 0; }
         .sidebar ul li a { color: white; text-decoration: none; display: block; padding: 10px 0; }
@@ -48,8 +54,7 @@
     <div class="top-bar">
         <h1>Result Form</h1>
         <div class="auth-buttons">
-            <button onclick="window.location.href='login.html'">Login</button>
-            <button onclick="window.location.href='login.html'">Logout</button>
+            <button onclick="window.location.href='login.html'"><i class=fas-fa-user></i> Login</button>
         </div>
     </div>
     <div class="container">
@@ -61,6 +66,7 @@
                 <li><a href="request.html">Request</a></li>
                 <li><a href="result.html">Result</a></li>
             </ul>
+            <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
         </div>
         <div class="main-content">
             <form id="resultForm">
@@ -318,6 +324,11 @@
                 document.getElementById('newNameInput').value = '';
             }
         });
+        function logout() {
+            // Here you would typically clear any user session data
+            // For this example, we'll just redirect to the login page
+            window.location.href = 'login.html';
+        }
     </script>
 </body>
 </html>
