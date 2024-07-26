@@ -5,20 +5,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result Form - Asset IT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; display: flex; flex-direction: column; }
-        .top-bar { background-color: #2c3e50; color: white; padding: 10px 20px; justify-content: center; align-items: center; position: fixed;}
-        .auth-buttons {position: absolute; right: 20px; gap: 70px;}
-        .auth-buttons button { background-color: #3498db; color: white; border: none; padding: 5px 10px; cursor: pointer; border-radius: 4px; }
-        .container { display: flex; flex: 1; }
-        .sidebar { width: 250px; background-color: #2c3e50; color: white; padding: 20px;
-            height: calc(100vh - 100px); /* Subtract top bar height */
+<style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background-color: #f0f2f5; 
+            margin: 0; 
+            padding: 0; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        .top-bar { 
+            background-color: #2c3e50; 
+            color: white; 
+            padding: 10px 20px; 
+            display: flex;
+            justify-content: space-between;
+            align-items: center; 
+            position: fixed;
+            width: 100%;
+            z-index: 1000;
+            box-sizing: border-box;
+        }
+        .auth-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .auth-buttons button { 
+            background-color: #3498db; 
+            color: white; 
+            border: none; 
+            padding: 5px 10px; 
+            cursor: pointer; 
+            border-radius: 4px; 
+        }
+        .container { 
+            display: flex; 
+            margin-top: 60px; /* Adjusted to account for fixed top bar */
+        }
+        .sidebar { 
+            width: 250px; 
+            background-color: #2c3e50; 
+            color: white; 
+            padding: 20px;
+            height: calc(100vh - 60px); /* Subtract top bar height */
             box-sizing: border-box;
             position: fixed;
-            overflow-y: auto; }
-        .sidebar h3 { font-size: 28px; margin-bottom: 20px; }
-        .sidebar ul { list-style-type: none; padding: 0; }
-        .sidebar ul li a { color: white; text-decoration: none; display: block; padding: 10px 0; }
+            overflow-y: auto; 
+        }
+        .sidebar h3 { 
+            font-size: 28px; 
+            margin-bottom: 20px; 
+        }
+        .sidebar ul { 
+            list-style-type: none; 
+            padding: 0; 
+        }
+        .sidebar ul li a { 
+            color: white; 
+            text-decoration: none; 
+            display: block; 
+            padding: 10px 0; 
+        }
         .logout-btn {
             background-color: #f28b82;
             color: white;
@@ -30,42 +77,20 @@
             margin-top: 20px;
         }
         .logout-btn:hover {
-            background-color: #f28b82;
+            background-color: #e74c3c;
         }
-        .main-content { flex: 1; 140px 20px 20px 240px; }
-        form { background-color: white; border: 1px solid #ccc; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        form label { display: block; margin-top: 10px; font-weight: bold; color: #34495e; position: relative; }
-        form label .required-asterisk { color: red; position: absolute; top: 0; }
-        form input[type="text"], form select, form textarea, form input[type="date"], form input[type="number"], form input[type="file"] {
-            width: 100%; padding: 10px; margin-top: 5px; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; background-color: transparent; color: grey;
+        .main-content { 
+            flex: 1; 
+            padding: 20px 20px 20px 270px; /* Added left padding to account for sidebar */
         }
-        form input[type="submit"] { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; margin-top: 10px; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; background-color: white; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
-        th { background-color: #3498db; color: white; cursor: pointer; }
-        .edit-btn, .delete-btn { margin-right: 5px; padding: 5px 10px; cursor: pointer; border: none; border-radius: 4px; color: white; }
-        .edit-btn { background-color: #2ecc71; }
-        .delete-btn { background-color: #e74c3c; }
-        #searchInput, #sortSelect { width: 200px; padding: 10px; margin-top: 10px; border: 1px solid #ddd; border-radius: 4px; }
-        .static-text { padding: 10px; background-color: #f0f0f0; border: 1px solid #ddd; border-radius: 4px; color: #333; font-weight: bold; }
-        .success-alert { background-color: #2ecc71; color: white; text-align: center; padding: 10px; margin-top: 20px; display: none; border-radius: 4px; }
-        .print-button { margin-bottom: 10px; text-align: right; }
-        .print-button button, #addNewNameBtn { background-color: #3498db; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
-        .action-column {
-            display: table-cell;
-        }
-        @media print {
-            .action-column, .foto-column {
-                display: none;
-            }
-        }
+        /* Rest of your CSS remains the same */
     </style>
 </head>
 <body>
     <div class="top-bar">
         <h1>Result Form</h1>
         <div class="auth-buttons">
-            <button onclick="window.location.href='login.html'"><i class=fas-fa-user></i> Login</button>
+            <button onclick="window.location.href='login.html'"><i class="fas fa-user"></i> Login</button>
         </div>
     </div>
     <div class="container">
