@@ -2,10 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Result Form - Asset IT</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<style>
+    <style>
         body { 
             font-family: 'Segoe UI', sans-serif; 
             background-color: #f0f2f5; 
@@ -83,7 +84,108 @@
             flex: 1; 
             padding: 20px 20px 20px 270px; /* Added left padding to account for sidebar */
         }
-        /* Rest of your CSS remains the same */
+        form { 
+            background-color: white; 
+            border: 1px solid #ccc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+        }
+        form label { 
+            display: block; 
+            margin-top: 10px; 
+            font-weight: bold; 
+            color: #34495e; 
+            position: relative; 
+        }
+        form label .required-asterisk { 
+            color: red; 
+            position: absolute; 
+            top: 0; 
+        }
+        form input[type="text"], form select, form textarea, form input[type="date"], form input[type="number"], form input[type="file"] {
+            width: 100%; 
+            padding: 10px; 
+            margin-top: 5px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            box-sizing: border-box; 
+            background-color: transparent; 
+            color: grey;
+        }
+        form input[type="submit"] { 
+            background-color: #3498db; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin-top: 10px; 
+        }
+        table { 
+            width: 100%; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background-color: white; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
+        }
+        th, td { 
+            border: 1px solid #ddd; 
+            padding: 12px; 
+            text-align: left; 
+        }
+        th { 
+            background-color: #3498db; 
+            color: white; 
+            cursor: pointer; 
+        }
+        .edit-btn, .delete-btn { 
+            margin-right: 5px; 
+            padding: 5px 10px; 
+            cursor: pointer; 
+            border: none; 
+            border-radius: 4px; 
+            color: white; 
+        }
+        .edit-btn { background-color: #2ecc71; }
+        .delete-btn { background-color: #e74c3c; }
+        #searchInput, #sortSelect { 
+            width: 200px; 
+            padding: 10px; 
+            margin-top: 10px; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+        }
+        .static-text { 
+            padding: 10px; 
+            background-color: #f0f0f0; 
+            border: 1px solid #ddd; 
+            border-radius: 4px; 
+            color: #333; 
+            font-weight: bold; 
+        }
+        .success-alert { 
+            background-color: #2ecc71; 
+            color: white; 
+            text-align: center; 
+            padding: 10px; 
+            margin-top: 20px; 
+            display: none; 
+            border-radius: 4px; 
+        }
+        .print-button { margin-bottom: 10px; text-align: right; }
+        .print-button button, #addNewNameBtn { 
+            background-color: #3498db; 
+            color: white; 
+            padding: 10px 20px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+        }
+        .action-column { display: table-cell; }
+        @media print {
+            .action-column, .foto-column { display: none; }
+        }
     </style>
 </head>
 <body>
@@ -110,7 +212,7 @@
                 <div id="nomor_result" class="static-text">RES/TI/2024/5982</div>
                 <label for="Nama">Nama</label>
                 <select id="Nama" required>
-                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
+                    <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
                     <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
                     <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
                     <option value="FERRI RIZALDI">FERRI RIZALDI</option>
@@ -134,7 +236,7 @@
                 <label for="status">Status <span class="required-asterisk">*</span></label>
                 <select id="status" required>
                     <option value="Disetujui">Disetujui</option>
-                     <option value="Belum disetujui">Belum disetujui</option>
+                    <option value="Belum disetujui">Belum disetujui</option>
                     <option value="Diasetkan">Diasetkan</option>
                 </select>
                 <label for="note">Note</label>
