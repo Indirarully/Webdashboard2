@@ -6,512 +6,308 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
         body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    height: 60px;
-}
-
-.top-bar h1 {
-    margin: 0;
-    font-size: 32px;
-}
-
-.auth-buttons {
-    position: absolute;
-    right: 10px;
-}
-
-.auth-buttons button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.auth-buttons button:first-child {
-    margin-left: 200px;
-}
-
-.container {
-    display: flex;
-    flex: 1;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 100px;
-    left: 0;
-    bottom: 0;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar h3 {
-    color: white;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 20px;
-    flex-grow: 1;
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 0;
-}
-
-.logout-btn {
-    background-color: #f28b82;
-    color: white;
-    border: none;
-    padding: 10px;
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    margin-top: auto;
-    margin-bottom: 20px;
-}
-
-.logout-btn:hover {
-    background-color: #f28b82;
-}
-
-.main-content {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    margin-top: 100px;
-}
-
-h2 {
-    color: #34495e;
-}
-
-form {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: none;
-}
-
-form.show {
-    display: block;
-}
-
-form label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #34495e;
-}
-
-form input[type="text"], form select, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-form input[type="submit"], .print-btn, #itemButton, #addButton, #addNewNameBtn {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
-form input[type="submit"]:hover, .print-btn:hover, #addButton:hover, #addNewNameBtn:hover {
-    background-color: #2980b9;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-    cursor: pointer;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #ddd;
-}
-
-.edit-btn, .delete-btn, .save-btn, .undo-btn {
-    margin-right: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    color: white;
-}
-
-.edit-btn {
-    background-color: #2ecc71;
-}
-
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f0f2f5;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    overflow-x: hidden;
-}
-
-.top-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    height: 60px;
-}
-
-.top-bar h1 {
-    margin: 0;
-    font-size: 32px;
-}
-
-.auth-buttons {
-    position: absolute;
-    right: 10px;
-}
-
-.auth-buttons button {
-    background-color: #3498db;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.auth-buttons button:first-child {
-    margin-left: 200px;
-}
-
-.container {
-    display: flex;
-    flex: 1;
-}
-
-.sidebar {
-    width: 250px;
-    background-color: #2c3e50;
-    color: white;
-    padding: 20px;
-    box-sizing: border-box;
-    position: fixed;
-    top: 100px;
-    left: 0;
-    bottom: 0;
-    overflow-y: auto;
-    display: flex;
-    flex-direction: column;
-}
-
-.sidebar h3 {
-    color: white;
-    font-size: 28px;
-    margin-bottom: 20px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-    margin-bottom: 0; /* Menghapus margin bottom */
-}
-
-.sidebar ul li {
-    margin: 10px 0;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-    padding: 10px 0;
-}
-
-.logout-btn {
-    background-color: transparent; /* Mengubah background menjadi transparan */
-    color: white;
-    border: none;
-    padding: 10px 0; /* Menyamakan padding dengan link navigasi */
-    width: 100%;
-    text-align: left;
-    cursor: pointer;
-    margin-top: 10px; /* Memberikan jarak yang sama dengan antar navigasi */
-    font-size: 16px; /* Menyamakan ukuran font dengan link navigasi */
-}
-
-.logout-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* Efek hover yang subtle */
-}
-
-.main-content {
-    flex: 1;
-    padding: 20px;
-    margin-left: 250px;
-    margin-top: 100px;
-}
-
-h2 {
-    color: #34495e;
-}
-
-form {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: none;
-}
-
-form.show {
-    display: block;
-}
-
-form label {
-    display: block;
-    margin-top: 10px;
-    font-weight: bold;
-    color: #34495e;
-}
-
-form input[type="text"], form select, form textarea {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-
-form input[type="submit"], .print-btn, #itemButton, #addButton, #addNewNameBtn {
-    background-color: #3498db;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    margin-top: 10px;
-    margin-right: 10px;
-}
-
-form input[type="submit"]:hover, .print-btn:hover, #addButton:hover, #addNewNameBtn:hover {
-    background-color: #2980b9;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-}
-
-th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
-    text-align: left;
-}
-
-th {
-    background-color: #3498db;
-    color: white;
-    cursor: pointer;
-}
-
-tr:nth-child(even) {
-    background-color: #f2f2f2;
-}
-
-tr:hover {
-    background-color: #ddd;
-}
-
-.edit-btn, .delete-btn, .save-btn, .undo-btn {
-    margin-right: 5px;
-    padding: 5px 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 4px;
-    color: white;
-}
-
-.edit-btn {
-    background-color: #2ecc71;
-}
-
-.edit-btn:hover {
-    background-color: #27ae60;
-}
-
-.delete-btn {
-    background-color: #e74c3c;
-}
-
-.delete-btn:hover {
-    background-color: #c0392b;
-}
-
-.save-btn {
-    background-color: #3498db;
-}
-
-.save-btn:hover {
-    background-color: #2980b9;
-}
-
-.undo-btn {
-    background-color: #f39c12;
-    color: white;
-    display: none;
-}
-
-.undo-btn:hover {
-    background-color: #d35400;
-}
-
-#searchInput {
-    width: 200px;
-    padding: 10px;
-    margin-top: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-}
-
-#sortBar {
-    margin-top: 10px;
-    margin-left: 10px;
-}
-
-.editable-cell {
-    cursor: pointer;
-}
-
-.editable-cell input {
-    border: none;
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-.editable-cell input:focus {
-    outline: none;
-    border-bottom: 1px solid #3498db;
-}
-
-.button-group {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
-
-@media screen and (max-width: 768px) {
-    .container {
-        flex-direction: column;
-        margin-left: 0;
-    }
-    
-    .sidebar {
-        width: 100%;
-        height: auto;
-        position: static;
-        padding: 10px;
-    }
-    
-    .main-content {
-        margin-left: 0;
-        padding: 10px;
-        margin-top: 20px;
-    }
-    
-    .top-bar {
-        height: auto;
-        padding: 10px;
-    }
-    
-    .top-bar h1 {
-        font-size: 24px;
-    }
-    
-    .auth-buttons {
-        position: static;
-        margin-top: 10px;
-    }
-}
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .top-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            height: 60px;
+        }
+
+        .top-bar h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        .auth-buttons {
+            position: absolute;
+            right: 10px;
+        }
+
+        .auth-buttons button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+
+        .auth-buttons button:first-child {
+            margin-left: 200px;
+        }
+
+        .container {
+            display: flex;
+            flex: 1;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            bottom: 0;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar h3 {
+            color: white;
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .sidebar ul li {
+            margin: 10px 0;
+        }
+
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            padding: 10px 0;
+        }
+
+        .logout-btn {
+            background-color: #f28b82;
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+            margin-top: auto;
+            margin-bottom: 20px;
+        }
+
+        .logout-btn:hover {
+            background-color: #f28b82;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 20px;
+            margin-left: 250px;
+            margin-top: 60px;
+        }
+
+        h2 {
+            color: #34495e;
+        }
+
+        form {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: none;
+        }
+
+        form.show {
+            display: block;
+        }
+
+        form label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #34495e;
+        }
+
+        form input[type="text"], form select, form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        form input[type="submit"], .print-btn, #itemButton, #addButton, #addNewNameBtn {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+
+        form input[type="submit"]:hover, .print-btn:hover, #addButton:hover, #addNewNameBtn:hover {
+            background-color: #2980b9;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .edit-btn, .delete-btn, .save-btn, .undo-btn {
+            margin-right: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 4px;
+            color: white;
+        }
+
+        .edit-btn {
+            background-color: #2ecc71;
+        }
+
+        .edit-btn:hover {
+            background-color: #27ae60;
+        }
+
+        .delete-btn {
+            background-color: #e74c3c;
+        }
+
+        .delete-btn:hover {
+            background-color: #c0392b;
+        }
+
+        .save-btn {
+            background-color: #3498db;
+        }
+
+        .save-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .undo-btn {
+            background-color: #f39c12;
+            color: white;
+            display: none;
+        }
+
+        .undo-btn:hover {
+            background-color: #d35400;
+        }
+
+        #searchInput {
+            width: 200px;
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        #sortBar {
+            margin-top: 10px;
+            margin-left: 10px;
+        }
+
+        .editable-cell {
+            cursor: pointer;
+        }
+
+        .editable-cell input {
+            border: none;
+            width: 100%;
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .editable-cell input:focus {
+            outline: none;
+            border-bottom: 1px solid #3498db;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                margin-left: 0;
+            }
+            
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: static;
+                padding: 10px;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 10px;
+                margin-top: 20px;
+            }
+            
+            .top-bar {
+                height: auto;
+                padding: 10px;
+            }
+            
+            .top-bar h1 {
+                font-size: 24px;
+            }
+            
+            .auth-buttons {
+                position: static;
+                margin-top: 10px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -523,116 +319,82 @@ tr:hover {
     </div>
     <div class="sidebar">
         <div>
-            <h2>MENU</h2>
-            <a href="index.html">Dashboard</a>
-            <a href="karyawan.html">Karyawan</a>
-            <a href="request.html">Request</a>
-            <a href="result.html">Result</a>
+            <h3>MENU</h3>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="karyawan.html">Karyawan</a></li>
+                <li><a href="request.html">Request</a></li>
+                <li><a href="result.html">Result</a></li>
+            </ul>
         </div>
         <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
     </div>
     <div class="main-content">
-        <div id="employeeForm" style="display: none;">
+        <div id="employeeForm" class="form-container">
             <form id="addEmployeeForm">
-                <label for="Nama" class="form-label">Nama</label>
+                <label for="Nama">Nama <span style="color: red;">*</span></label>
                 <select id="Nama" required>
+                    <option value="">Pilih Nama</option>
                     <option value="INDIRA RULLY PRICILIA">INDIRA RULLY PRICILIA</option>
                     <option value="PUTUT ADI PRAKOSO">PUTUT ADI PRAKOSO</option>
                     <option value="RIJKI HIDAYAT">RIJKI HIDAYAT</option>
                     <option value="FERRI RIZALDI">FERRI RIZALDI</option>
-                    <option value="TRIARDHY FIKRI NUGRAHA">TRIARDHY FIKRI NUGRAHA</option>
-                    <option value="MOSSES ARA'AL DE SELA">MOSSES ARA'AL DE SELA</option>
-                    <option value="JAELANI">JAELANI</option>
-                    <option value="JIHAN TSHIVANA">JIHAN TSHIVANA</option>
-                    <option value="OCTAVIANA">OCTAVIANA</option>
-                    <option value="RIZQI SAPUTRI">RIZQI SAPUTRI</option>
-                    <option value="ARYA PRATAMA PUTRA">ARYA PRATAMA PUTRA</option>
-                    <option value="DEWI RABIATUL ZAHRO">DEWI RABIATUL ZAHRO</option>
-                    <option value="NOVIA ANGGRAINI">NOVIA ANGGRAINI</option>
-                    <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
+                    <option value="TRIARDHY FIKRI SAPUTRO">TRIARDHY FIKRI SAPUTRO</option>
+                    <option value="AGUNG KURNIAWAN">AGUNG KURNIAWAN</option>
+                    <option value="AHMAD MARDIYANTO">AHMAD MARDIYANTO</option>
+                    <option value="DWI WAHYU SETIAWAN">DWI WAHYU SETIAWAN</option>
+                    <option value="ERWIN YUSUF WIBOWO">ERWIN YUSUF WIBOWO</option>
+                    <option value="FAJAR YANUAR">FAJAR YANUAR</option>
                 </select>
-
-                <label for="npk" class="form-label">NPK</label>
-                <select id="npk" required>
-                    <option value="12355">12355</option>
-                    <option value="12364">12364</option>
-                    <option value="12369">12369</option>
-                    <option value="12360">12360</option>
-                    <option value="12356">12356</option>
-                    <option value="12399">12399</option>
-                    <option value="12394">12394</option>
-                    <option value="12387">12387</option>
-                    <option value="12381">12381</option>
-                    <option value="12376">12376</option>
-                    <option value="12372">12372</option>
-                    <option value="12368">12368</option>
-                    <option value="12363">12363</option>
-                    <option value="12391">12391</option>
-                </select>
-
-                <label class="form-label">Kebutuhan</label>
-                <div class="kebutuhan-options">
-                    <label><input type="radio" name="kebutuhan" value="Peminjaman Aset" required> Peminjaman Aset</label>
-                    <label><input type="radio" name="kebutuhan" value="Permintaan Aset" required> Permintaan Aset</label>
-                </div>
-
-                <label for="item" class="form-label">Item</label>
-                <select id="item" required>
+                <label for="NPK">NPK <span style="color: red;">*</span></label>
+                <input type="text" id="NPK" required>
+                <label for="Kebutuhan">Kebutuhan <span style="color: red;">*</span></label>
+                <select id="Kebutuhan" required>
+                    <option value="">Pilih Kebutuhan</option>
                     <option value="Laptop">Laptop</option>
-                    <option value="Chair">Chair</option>
-                    <option value="Printer">Printer</option>
-                    <option value="Stapler">Stapler</option>
-                    <option value="Whiteboard">Whiteboard</option>
-                    <option value="Desk Lamp">Desk lamp</option>
-                    <option value="Cabinet">Cabinet</option>
-                    <option value="Notebook">Notebook</option>
                     <option value="Monitor">Monitor</option>
-                    <option value="Speaker">Speaker</option>
+                    <option value="Printer">Printer</option>
+                    <option value="Aksesoris">Aksesoris</option>
                 </select>
-
-                <label for="department" class="form-label">Department</label>
-                <select id="department" required>
+                <label for="Item">Item <span style="color: red;">*</span></label>
+                <input type="text" id="Item" required>
+                <label for="Department">Department <span style="color: red;">*</span></label>
+                <select id="Department" required>
+                    <option value="">Pilih Department</option>
                     <option value="Engineering">Engineering</option>
-                    <option value="QC">QC</option>
-                    <option value="Produksi">Produksi</option>
-                    <option value="General Affair">General Affair</option>
-                    <option value="HRD">HRD</option>
-                    <option value="Accounting">Accounting</option>
-                    <option value="Purchasing">Purchasing</option>
-                    <option value="PPiC">PPiC</option>
-                    <option value="Maintenance">Maintenance</option>
-                    <option value="IT">IT</option>
+                    <option value="Marketing">Marketing</option>
                     <option value="Finance">Finance</option>
+                    <option value="HRD">HRD</option>
+                    <option value="IT">IT</option>
                 </select>
-
-                <label for="keperluan" class="form-label">Note</label>
-                <textarea id="keperluan" placeholder="Keperluan" required></textarea>
-
-                <label for="foto" class="form-label">Foto</label>
-                <input type="file" id="foto" accept="image/*" required>
-
-                <label for="duration" class="form-label">Lama Peminjaman</label>
-                <select id="duration" required></select>
-
-                <input type="submit" value="Tambah">
+                <label for="Keperluan">Keperluan <span style="color: red;">*</span></label>
+                <textarea id="Keperluan" required></textarea>
+                <label for="lamaPeminjaman">Lama Peminjaman <span style="color: red;">*</span></label>
+                <input type="text" id="lamaPeminjaman" required>
+                <label for="Foto">Foto Item <span style="color: red;">*</span></label>
+                <input type="file" id="Foto" accept="image/*" required>
+                <span id="fotoError" style="color: red; display: none;">*bidang ini wajib diisi</span>
+                <input type="submit" value="Tambah Data">
             </form>
-            <div class="success-alert" id="successAlert" style="display: none;">Data successfully submitted!</div>
         </div>
-        <div class="controls">
-            <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Cari berdasarkan nama..">
-            <select id="sortInput" onchange="sortTable()">
-                <option value="nama">Nama</option>
-                <option value="npk">NPK</option>
-                <option value="item">Item</option>
-                <option value="department">Department</option>
-                <option value="keperluan">Keperluan</option>
-                <option value="duration">Lama Peminjaman</option>
+        <div class="button-group">
+            <button id="addButton">Tambah Data</button>
+            <button id="itemButton">Item</button>
+            <button class="print-btn" onclick="printTable()">Cetak Tabel</button>
+            <button class="undo-btn" onclick="undoDelete()">Undo</button>
+            <input type="text" id="searchInput" placeholder="Cari...">
+            <select id="sortBar">
+                <option value="nama">Sort by Nama</option>
+                <option value="npk">Sort by NPK</option>
+                <option value="kebutuhan">Sort by Kebutuhan</option>
+                <option value="item">Sort by Item</option>
+                <option value="department">Sort by Department</option>
+                <option value="keperluan">Sort by Keperluan</option>
+                <option value="lamaPeminjaman">Sort by Lama Peminjaman</option>
             </select>
-            <button class="print-button" onclick="printTable()">Print</button>
-            <button class="toggle-button" onclick="toggleForm()">Add</button>
         </div>
         <table id="employeeTable">
-            <thead>              
+            <thead>
                 <tr>
                     <th>ID</th>
                     <th>Nama</th>
@@ -642,205 +404,235 @@ tr:hover {
                     <th>Department</th>
                     <th>Keperluan</th>
                     <th>Lama Peminjaman</th>
-                    <th>Foto</th>
+                    <th>Foto Item</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody id="employeeTableBody"></tbody>
+            <tbody>
+                <!-- Data Karyawan akan ditambahkan di sini -->
+            </tbody>
         </table>
     </div>
+
     <script>
         let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [];
-        let currentId = parseInt(localStorage.getItem('currentId')) || 1;
+        let editMode = false;
+        let editIndex = -1;
+        let undoStack = [];
+        let undoTimeout;
 
-        function toggleForm() {
-            const form = document.getElementById('employeeForm');
-            form.style.display = form.style.display === 'none' ? 'block' : 'none';
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            updateTable();
+            document.getElementById('addButton').addEventListener('click', () => {
+                const formContainer = document.getElementById('employeeForm');
+                formContainer.classList.toggle('show');
+            });
 
-        document.getElementById('addEmployeeForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            addEmployee();
+            document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                addEmployee();
+            });
+
+            document.getElementById('searchInput').addEventListener('input', filterTable);
+            document.getElementById('sortBar').addEventListener('change', sortTable);
         });
 
         function addEmployee() {
             const nama = document.getElementById('Nama').value;
-            const npk = document.getElementById('npk').value;
-            const kebutuhan = document.querySelector('input[name="kebutuhan"]:checked').value;
-            const item = document.getElementById('item').value;
-            const department = document.getElementById('department').value;
-            const keperluan = document.getElementById('keperluan').value;
-            const duration = document.getElementById('duration').value + ' hari';
-            const fotoFile = document.getElementById('foto').files[0];
+            const npk = document.getElementById('NPK').value;
+            const kebutuhan = document.getElementById('Kebutuhan').value;
+            const item = document.getElementById('Item').value;
+            const department = document.getElementById('Department').value;
+            const keperluan = document.getElementById('Keperluan').value;
+            const lamaPeminjaman = document.getElementById('lamaPeminjaman').value;
+            const fotoInput = document.getElementById('Foto');
+            const foto = fotoInput.files[0] ? URL.createObjectURL(fotoInput.files[0]) : '';
 
-            if (!fotoFile) {
-                alert('Mohon pilih file foto');
+            if (!fotoInput.files[0]) {
+                document.getElementById('fotoError').style.display = 'inline';
                 return;
+            } else {
+                document.getElementById('fotoError').style.display = 'none';
             }
 
-            const reader = new FileReader();
-            reader.onloadend = function() {
-                const newEmployee = {
-                    id: currentId++,
-                    nama,
-                    npk,
-                    kebutuhan,
-                    item,
-                    department,
-                    keperluan,
-                    duration,
-                    fotoData: reader.result
-                };
-                employeeData.push(newEmployee);
-                localStorage.setItem('employeeData', JSON.stringify(employeeData));
-                localStorage.setItem('currentId', currentId.toString());
-                renderTable();
-                document.getElementById('addEmployeeForm').reset();
-                toggleForm();
-                showSuccessAlert();
+            const newEmployee = {
+                id: employeeData.length + 1,
+                nama,
+                npk,
+                kebutuhan,
+                item,
+                department,
+                keperluan,
+                lamaPeminjaman,
+                foto
             };
 
-            reader.readAsDataURL(fotoFile);
+            employeeData.push(newEmployee);
+            updateTable();
+            localStorage.setItem('employeeData', JSON.stringify(employeeData));
+
+            alert('Data berhasil ditambahkan!');
+            resetForm();
         }
 
-        function showSuccessAlert() {
-            const alert = document.getElementById('successAlert');
-            alert.style.display = 'block';
-            setTimeout(() => {
-                alert.style.display = 'none';
-            }, 3000);
-        }
-
-        function renderTable() {
-            const tableBody = document.getElementById('employeeTableBody');
+        function updateTable() {
+            const tableBody = document.getElementById('employeeTable').querySelector('tbody');
             tableBody.innerHTML = '';
-            employeeData.forEach((employee, index) => {
-                const row = tableBody.insertRow();
+
+            employeeData.forEach(employee => {
+                const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${employee.id}</td>
-                    <td>${employee.nama}</td>
-                    <td>${employee.npk}</td>
+                    <td contenteditable="true" onblur="updateEmployee(${employee.id}, 'nama', this.innerText)">${employee.nama}</td>
+                    <td contenteditable="true" onblur="updateEmployee(${employee.id}, 'npk', this.innerText)">${employee.npk}</td>
                     <td>${employee.kebutuhan}</td>
-                    <td>${employee.item}</td>
-                   <td>${employee.department}</td>
-                    <td>${employee.keperluan}</td>
-                    <td>${employee.duration}</td>
-                    <td><img src="${employee.fotoData}" width="100"></td>
+                    <td contenteditable="true" onblur="updateEmployee(${employee.id}, 'item', this.innerText)">${employee.item}</td>
+                    <td contenteditable="true" onblur="updateEmployee(${employee.id}, 'department', this.innerText)">${employee.department}</td>
+                    <td contenteditable="true" onblur="updateEmployee(${employee.id}, 'keperluan', this.innerText)">${employee.keperluan}</td>
+                    <td>${employee.lamaPeminjaman}</td>
+                    <td><img src="${employee.foto}" alt="Foto Item" width="50"></td>
                     <td>
-                        <button class="save-button" onclick="editRow(this)">Edit</button>
-                        <button class="delete-button" onclick="deleteRow(${index})">Hapus</button>
-                        <button class="undo-button" onclick="undoEdit(this)" style="display:none;">Undo</button>
+                        <button class="edit-btn" onclick="editEmployee(${employee.id})">Edit</button>
+                        <button class="delete-btn" onclick="deleteEmployee(${employee.id})">Delete</button>
                     </td>
                 `;
+                tableBody.appendChild(row);
             });
         }
 
-        function editRow(button) {
-            const row = button.parentNode.parentNode;
-            const index = Array.from(row.parentNode.children).indexOf(row);
-            const employee = employeeData[index];
-            
-            for (let i = 1; i < row.cells.length - 2; i++) {
-                const cell = row.cells[i];
-                const fieldName = Object.keys(employee)[i];
-                if (fieldName !== 'fotoData') {
-                    const text = cell.textContent;
-                    cell.innerHTML = `<input type="text" value="${text}">`;
-                }
-            }
-            
-            button.textContent = 'Simpan';
-            button.onclick = function() { saveRow(this, index); };
-            row.querySelector('.undo-button').style.display = 'inline-block';
-        }
-
-        function saveRow(button, index) {
-            const row = button.parentNode.parentNode;
-            const updatedEmployee = {...employeeData[index]};
-            
-            for (let i = 1; i < row.cells.length - 2; i++) {
-                const cell = row.cells[i];
-                const input = cell.querySelector('input');
-                if (input) {
-                    const fieldName = Object.keys(updatedEmployee)[i];
-                    updatedEmployee[fieldName] = input.value;
-                    cell.textContent = input.value;
-                }
-            }
-            
-            employeeData[index] = updatedEmployee;
-            localStorage.setItem('employeeData', JSON.stringify(employeeData));
-            
-            button.textContent = 'Edit';
-            button.onclick = function() { editRow(this); };
-            row.querySelector('.undo-button').style.display = 'none';
-        }
-
-        function deleteRow(index) {
-            if (confirm('Apakah Anda yakin ingin menghapus entri ini?')) {
-                employeeData.splice(index, 1);
+        function updateEmployee(id, field, value) {
+            const employee = employeeData.find(emp => emp.id === id);
+            if (employee) {
+                employee[field] = value;
                 localStorage.setItem('employeeData', JSON.stringify(employeeData));
-                renderTable();
+                alert('Data berhasil diperbarui!');
             }
         }
 
-        function undoEdit(button) {
-            renderTable();
+        function deleteEmployee(id) {
+            const index = employeeData.findIndex(emp => emp.id === id);
+            if (index !== -1) {
+                const deletedEmployee = employeeData.splice(index, 1)[0];
+                updateTable();
+                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                undoStack.push(deletedEmployee);
+
+                clearTimeout(undoTimeout);
+                undoTimeout = setTimeout(() => {
+                    undoStack = [];
+                }, 5000);
+
+                alert('Data berhasil dihapus. Anda memiliki 5 detik untuk mengembalikan.');
+                document.querySelector('.undo-btn').style.display = 'inline';
+            }
         }
 
-        function searchTable() {
-            const input = document.getElementById('searchInput');
-            const filter = input.value.toLowerCase();
-            const rows = document.getElementById('employeeTableBody').getElementsByTagName('tr');
-            
-            for (let row of rows) {
-                const cells = row.getElementsByTagName('td');
-                let found = false;
-                for (let cell of cells) {
-                    if (cell.textContent.toLowerCase().indexOf(filter) > -1) {
-                        found = true;
-                        break;
-                    }
-                }
-                row.style.display = found ? '' : 'none';
+        function undoDelete() {
+            if (undoStack.length > 0) {
+                const lastDeletedEmployee = undoStack.pop();
+                employeeData.push(lastDeletedEmployee);
+                updateTable();
+                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                alert('Penghapusan berhasil dibatalkan.');
+                document.querySelector('.undo-btn').style.display = 'none';
+            } else {
+                alert('Tidak ada yang bisa dibatalkan.');
             }
+        }
+
+        function resetForm() {
+            document.getElementById('addEmployeeForm').reset();
+        }
+
+        function filterTable() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const tableRows = document.getElementById('employeeTable').querySelectorAll('tbody tr');
+
+            tableRows.forEach(row => {
+                const rowText = row.innerText.toLowerCase();
+                row.style.display = rowText.includes(searchTerm) ? '' : 'none';
+            });
         }
 
         function sortTable() {
-            const select = document.getElementById('sortInput');
-            const column = select.value;
-            employeeData.sort((a, b) => (a[column] > b[column]) ? 1 : -1);
-            renderTable();
+            const sortKey = document.getElementById('sortBar').value;
+            employeeData.sort((a, b) => {
+                if (a[sortKey] < b[sortKey]) return -1;
+                if (a[sortKey] > b[sortKey]) return 1;
+                return 0;
+            });
+            updateTable();
         }
 
         function printTable() {
-            const originalContents = document.body.innerHTML;
-            const printContents = document.getElementById('employeeTable').outerHTML;
-            document.body.innerHTML = printContents;
-            window.print();
-            document.body.innerHTML = originalContents;
-            renderTable();
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                <head>
+                    <title>Print Table</title>
+                    <style>
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                        }
+                        th, td {
+                            border: 1px solid #ddd;
+                            padding: 8px;
+                            text-align: left;
+                        }
+                        th {
+                            background-color: #3498db;
+                            color: white;
+                        }
+                        tr:nth-child(even) {
+                            background-color: #f2f2f2;
+                        }
+                        tr:hover {
+                            background-color: #ddd;
+                        }
+                        img {
+                            width: 50px;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h2>Data Karyawan</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nama</th>
+                                <th>NPK</th>
+                                <th>Kebutuhan</th>
+                                <th>Item</th>
+                                <th>Department</th>
+                                <th>Keperluan</th>
+                                <th>Lama Peminjaman</th>
+                                <th>Foto Item</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${employeeData.map(emp => `
+                                <tr>
+                                    <td>${emp.id}</td>
+                                    <td>${emp.nama}</td>
+                                    <td>${emp.npk}</td>
+                                    <td>${emp.kebutuhan}</td>
+                                    <td>${emp.item}</td>
+                                    <td>${emp.department}</td>
+                                    <td>${emp.keperluan}</td>
+                                    <td>${emp.lamaPeminjaman}</td>
+                                    <td><img src="${emp.foto}" alt="Foto Item"></td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
         }
-
-        function loadDurationOptions() {
-            const durationSelect = document.getElementById('duration');
-            for (let i = 21; i <= 30; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.textContent = i + ' hari';
-                durationSelect.appendChild(option);
-            }
-        }
-
-        function logout() {
-            // Logika untuk logout (misalnya, membersihkan session storage, mengarahkan ke halaman login)
-            window.location.href = 'login.html';
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            renderTable();
-            loadDurationOptions();
-        });
     </script>
 </body>
 </html>
