@@ -52,6 +52,8 @@
             box-sizing: border-box;
             position: fixed;
             overflow-y: auto; 
+            display: flex; /* Tambahkan ini */
+    flex-direction: column; 
         }
         .sidebar h3 { 
             font-size: 28px; 
@@ -60,6 +62,8 @@
         .sidebar ul { 
             list-style-type: none; 
             padding: 0; 
+            margin-bottom: 0; /* Hapus margin bottom jika ada */
+    flex-grow: 1;
         }
         .sidebar ul li a { 
             color: white; 
