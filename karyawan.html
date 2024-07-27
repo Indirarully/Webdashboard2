@@ -413,17 +413,18 @@ form label {
         <div class="button-group">
             <button id="addButton">Tambah Data</button>
             <button id="itemButton">Item</button>
+            <button class="add-btn" onclick="Toggleform()">Add employee</button>
             <button class="print-btn" onclick="printTable()">Cetak Tabel</button>
             <button class="undo-btn" onclick="undoDelete()">Undo</button>
             <input type="text" id="searchInput" placeholder="Cari...">
             <select id="sortBar">
-                <option value="nama">Sort by Nama</option>
-                <option value="npk">Sort by NPK</option>
-                <option value="kebutuhan">Sort by Kebutuhan</option>
-                <option value="item">Sort by Item</option>
-                <option value="department">Sort by Department</option>
-                <option value="keperluan">Sort by Keperluan</option>
-                <option value="lamaPeminjaman">Sort by Lama Peminjaman</option>
+                <option value="nama">Nama</option>
+                <option value="npk">NPK</option>
+                <option value="kebutuhan">Kebutuhan</option>
+                <option value="item">Item</option>
+                <option value="department"> Department</option>
+                <option value="keperluan">Keperluan</option>
+                <option value="lamaPeminjaman">Lama Peminjaman</option>
             </select>
         </div>
         <table id="employeeTable">
@@ -470,7 +471,7 @@ form label {
     updateTable();
             document.getElementById('addButton').addEventListener('click', () => {
     const formContainer = document.getElementById('employeeForm');
-    formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+    formContainer.classList.toggle('show');
 });
 
             document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
