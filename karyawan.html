@@ -109,8 +109,6 @@
         }
 .container {
     display: flex;
-    flex: 1;
-    padding-top: 100px; /* Sesuaikan dengan tinggi top-bar */
     margin-left: 250px; /* Sesuaikan dengan lebar sidebar */
 }
         .main-content {
@@ -124,24 +122,22 @@
             color: #34495e;
         }
 
-        form {
-    background-color: white;
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    display: block; /* Ubah ini dari 'none' menjadi 'block' */
+        form { 
+            background-color: white; 
+            border: 1px solid #ccc; 
+            padding: 20px; 
+            border-radius: 8px; 
+            box-shadow: 0 0 10px rgba(0,0,0,0.1); 
         }
+        form label { 
+            display: block; 
+            margin-top: 10px; 
+            font-weight: bold; 
+            color: #34495e; 
+            position: relative; 
 
         form.show {
             display: block;
-        }
-
-        form label {
-            display: block;
-            margin-top: 10px;
-            font-weight: bold;
-            color: #34495e;
         }
 
         form input[type="text"], form select, form textarea {
