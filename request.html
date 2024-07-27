@@ -51,6 +51,8 @@
     left: 0;
     bottom: 0;
     overflow-y: auto;
+ display: flex; /* Tambahkan ini */
+    flex-direction: column; 
 }
         .sidebar h3 {
             color: white;
@@ -60,6 +62,8 @@
         .sidebar ul {
             list-style-type: none;
             padding: 0;
+            margin-bottom: 0; /* Hapus margin bottom jika ada */
+    flex-grow: 1;
         }
         .sidebar ul li {
             margin: 10px 0;
