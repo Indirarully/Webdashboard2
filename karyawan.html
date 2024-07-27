@@ -135,7 +135,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: none;
+            display: block;
         }
 
         form.show {
@@ -1113,8 +1113,8 @@ tr:hover {
                     <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
                 </select>
 
-                <label for="npk" class="form-label">NPK</label>
-                <select id="npk" required>
+                <label for="NPK" class="form-label">NPK</label>
+                <select id="NPK" required>
                     <option value="12355">12355</option>
                     <option value="12364">12364</option>
                     <option value="12369">12369</option>
@@ -1137,8 +1137,8 @@ tr:hover {
                     <label><input type="radio" name="kebutuhan" value="Permintaan Aset" required> Permintaan Aset</label>
                 </div>
 
-                <label for="item" class="form-label">Item</label>
-                <select id="item" required>
+                <label for="Item" class="form-label">Item</label>
+                <select id="Item" required>
                     <option value="Laptop">Laptop</option>
                     <option value="Chair">Chair</option>
                     <option value="Printer">Printer</option>
@@ -1167,7 +1167,12 @@ tr:hover {
                 <label for="Keperluan">Keperluan <span style="color: red;">*</span></label>
                 <textarea id="Keperluan" required></textarea>
                 <label for="lamaPeminjaman">Lama Peminjaman <span style="color: red;">*</span></label>
-                <select id="duration" required></select>
+                <select id="lamaPeminjaman" required>
+    <option value="1 minggu">1 minggu</option>
+    <option value="2 minggu">2 minggu</option>
+    <option value="1 bulan">1 bulan</option>
+    <!-- Tambahkan opsi lainnya sesuai kebutuhan -->
+</select>
                 <label for="Foto">Foto Item <span style="color: red;">*</span></label>
                 <input type="file" id="Foto" accept="image/*" required>
                 <span id="fotoError" style="color: red; display: none;">*bidang ini wajib diisi</span>
@@ -1221,9 +1226,9 @@ tr:hover {
         document.addEventListener('DOMContentLoaded', () => {
             updateTable();
             document.getElementById('addButton').addEventListener('click', () => {
-                const formContainer = document.getElementById('employeeForm');
-                formContainer.classList.toggle('show');
-            });
+    const formContainer = document.getElementById('employeeForm');
+    formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+});
 
             document.getElementById('addEmployeeForm').addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -1233,7 +1238,19 @@ tr:hover {
             document.getElementById('searchInput').addEventListener('input', filterTable);
             document.getElementById('sortBar').addEventListener('change', sortTable);
         });
-
+let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [
+    {
+        id: 1,
+        nama: "John Doe",
+        npk: "12345",
+        kebutuhan: "Permintaan Aset",
+        item: "Laptop",
+        department: "IT",
+        keperluan: "Untuk pekerjaan sehari-hari",
+        lamaPeminjaman: "1 bulan",
+        foto: "path/to/image.jpg"
+    }
+];
         function addEmployee() {
             const nama = document.getElementById('Nama').value;
             const npk = document.getElementById('NPK').value;
