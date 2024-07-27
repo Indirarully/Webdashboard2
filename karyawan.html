@@ -130,12 +130,12 @@
         }
 
         form {
-            background-color: white;
-            border: 1px solid #ccc;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            display: block;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: block; /* Ubah ini dari 'none' menjadi 'block' */
         }
 
         form.show {
@@ -1217,14 +1217,13 @@ tr:hover {
     </div>
 
     <script>
-        let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [];
         let editMode = false;
         let editIndex = -1;
         let undoStack = [];
         let undoTimeout;
 
         document.addEventListener('DOMContentLoaded', () => {
-            updateTable();
+    updateTable();
             document.getElementById('addButton').addEventListener('click', () => {
     const formContainer = document.getElementById('employeeForm');
     formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
