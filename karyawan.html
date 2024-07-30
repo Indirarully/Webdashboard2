@@ -23,7 +23,7 @@
                 <li><a href="karyawan.html">Karyawan</a></li>
                 <li><a href="request.html">Request</a></li>
                 <li><a href="result.html">Result</a></li>
-                  <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
+                <button class="logout-btn" onclick="logout()"><i class="fas fa-sign-out-alt"></i> Logout</button>
             </ul>
         </div>
     </div>
@@ -49,7 +49,7 @@
                     <option value="DEBORA HIZKHIA PARDEDE">DEBORA HIZKHIA PARDEDE</option>
                 </select>
                 <label for="NPK">NPK <span style="color: red;">*</span></label>
-                <select id="npk" required>
+                <select id="NPK" required>
                     <option value="12355">12355</option>
                     <option value="12364">12364</option>
                     <option value="12369">12369</option>
@@ -85,7 +85,7 @@
                     <option value="Speaker">Speaker</option>
                 </select>
                 <label for="Department">Department <span style="color: red;">*</span></label>
-                <select name="department" id="department">
+                <select id="Department" required>
                     <option value="Engineering">Engineering</option>
                     <option value="QC">QC</option>
                     <option value="Produksi">Produksi</option>
@@ -123,7 +123,7 @@
                 <option value="npk">NPK</option>
                 <option value="kebutuhan">Kebutuhan</option>
                 <option value="item">Item</option>
-                <option value="department"> Department</option>
+                <option value="department">Department</option>
                 <option value="keperluan">Keperluan</option>
                 <option value="lamaPeminjaman">Lama Peminjaman</option>
             </select>
@@ -150,14 +150,16 @@
     </div>
 
     <script>
-        let employeeData = JSON.parse(localStorage.getItem('employeeData')) || [{id: 1,nama: "John Doe",npk: "12345",kebutuhan: "Permintaan Aset",item: "Laptop",department: "IT",keperluan: "Untuk pekerjaan sehari-hari",lamaPeminjaman: "1 bulan",foto: "path/to/image.jpg"}];
+        let employeeData = [];
         let editMode = false;
         let editIndex = -1;
         let undoStack = [];
         let undoTimeout;
 
         document.addEventListener('DOMContentLoaded', () => {
+            loadEmployeeData();
             updateTable();
+            
             document.getElementById('addButton').addEventListener('click', () => {
                 const formContainer = document.getElementById('employeeForm');
                 formContainer.classList.toggle('show');
@@ -172,6 +174,16 @@
             document.getElementById('sortBar').addEventListener('change', sortTable);
         });
 
+        function loadEmployeeData() {
+            try {
+                const storedData = localStorage.getItem('employeeData');
+                employeeData = storedData ? JSON.parse(storedData) : [];
+            } catch (error) {
+                console.error("Error loading employee data:", error);
+                employeeData = [];
+            }
+        }
+
         function addEmployee() {
             const nama = document.getElementById('Nama').value;
             const npk = document.getElementById('NPK').value;
@@ -181,8 +193,7 @@
             const keperluan = document.getElementById('Keperluan').value;
             const lamaPeminjaman = document.getElementById('lamaPeminjaman').value;
             const fotoInput = document.getElementById('Foto');
-            const foto = fotoInput.files[0] ? URL.createObjectURL(fotoInput.files[0]) : '';
-
+            
             if (!fotoInput.files[0]) {
                 document.getElementById('fotoError').style.display = 'inline';
                 return;
@@ -190,24 +201,29 @@
                 document.getElementById('fotoError').style.display = 'none';
             }
 
-            const newEmployee = {
-                id: employeeData.length + 1,
-                nama,
-                npk,
-                kebutuhan,
-                item,
-                department,
-                keperluan,
-                lamaPeminjaman
-                foto
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const newEmployee = {
+                    id: employeeData.length + 1,
+                    nama,
+                    npk,
+                    kebutuhan,
+                    item,
+                    department,
+                    keperluan,
+                    lamaPeminjaman,
+                    foto: e.target.result
+                };
+
+                employeeData.push(newEmployee);
+                updateTable();
+                saveEmployeeData();
+
+                alert('Data berhasil ditambahkan!');
+                resetForm();
             };
 
-            employeeData.push(newEmployee);
-            updateTable();
-            localStorage.setItem('employeeData', JSON.stringify(employeeData));
-
-            alert('Data berhasil ditambahkan!');
-            resetForm();
+            reader.readAsDataURL(fotoInput.files[0]);
         }
 
         function updateTable() {
@@ -239,7 +255,7 @@
             const employee = employeeData.find(emp => emp.id === id);
             if (employee) {
                 employee[field] = value;
-                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                saveEmployeeData();
                 alert('Data berhasil diperbarui!');
             }
         }
@@ -249,7 +265,7 @@
             if (index !== -1) {
                 const deletedEmployee = employeeData.splice(index, 1)[0];
                 updateTable();
-                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                saveEmployeeData();
                 undoStack.push(deletedEmployee);
 
                 clearTimeout(undoTimeout);
@@ -267,7 +283,7 @@
                 const lastDeletedEmployee = undoStack.pop();
                 employeeData.push(lastDeletedEmployee);
                 updateTable();
-                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+                saveEmployeeData();
                 alert('Penghapusan berhasil dibatalkan.');
                 document.querySelector('.undo-btn').style.display = 'none';
             } else {
@@ -350,6 +366,20 @@
             `);
             printWindow.document.close();
             printWindow.print();
+        }
+
+        function saveEmployeeData() {
+            try {
+                localStorage.setItem('employeeData', JSON.stringify(employeeData));
+            } catch (error) {
+                console.error("Error saving employee data:", error);
+            }
+        }
+
+        function logout() {
+            // Implementasi fungsi logout di sini
+            alert('Logout berhasil');
+            window.location.href = 'login.html';
         }
     </script>
 </body>
