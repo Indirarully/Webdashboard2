@@ -219,6 +219,9 @@
             </ul>
              </div>
         <div class="main-content">
+            <button id="showFormBtn">Tambah Data</button>
+<div id="formContainer" style="display: none;">
+  <!-- Pindahkan form Anda ke sini -->
             <form id="resultForm">
                 <label for="nomor_result">Nomor Result</label>
                 <div id="nomor_result" class="static-text">RES/TI/2024/5982</div>
@@ -259,6 +262,7 @@
                 <input type="file" id="foto" accept="image/*">
                 <input type="submit" value="Submit Result">
             </form>
+</div>
             <div class="success-alert" id="successAlert">Data successfully submitted!</div>
             <div>
                 <input type="text" id="searchInput" placeholder="Search...">
@@ -298,6 +302,7 @@
             <input type="text" id="newNameInput" placeholder="Enter new name">
             <button id="saveNewNameBtn">Save</button>
             <button id="closeModalBtn">Close</button>
+            
         </div>
     </div>
     <script>
@@ -438,15 +443,15 @@
         }
 
         function printTable() {
-            var table = document.getElementById('resultTable');
-            var printWindow = window.open('', '_blank');
-            printWindow.document.write('<html><head><title>Print Table</title>');
-            printWindow.document.write('<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } .action-column, .foto-column { display: none; }</style>');
-            printWindow.document.write('</head><body>');
-            printWindow.document.write(table.outerHTML);
-            printWindow.document.write('</body></html>');
-            printWindow.document.close();
-            printWindow.print();
+  var table = document.getElementById('resultTable');
+  var printWindow = window.open('', '_blank');
+  printWindow.document.write('<html><head><title>Print Table</title>');
+  printWindow.document.write('<style>table { border-collapse: collapse; width: 100%; } th, td { border: 1px solid black; padding: 8px; text-align: left; } .action-column, .foto-column { display: none; }</style>');
+  printWindow.document.write('</head><body>');
+  printWindow.document.write(table.outerHTML);
+  printWindow.document.write('</body></html>');
+  printWindow.document.close();
+  printWindow.print();
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -460,7 +465,9 @@
         document.getElementById('closeModalBtn').addEventListener('click', function() {
             document.getElementById('addNameModal').style.display = 'none';
         });
-
+document.getElementById('showFormBtn').addEventListener('click', function() {
+  document.getElementById('formContainer').style.display = 'block';
+});
         document.getElementById('saveNewNameBtn').addEventListener('click', function() {
             var newName = document.getElementById('newNameInput').value;
             if (newName) {
